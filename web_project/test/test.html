@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="test.css">
+    <script type="text/javascript" src="test.js"></script>
+  </head>
+  <body>
+    <form action="{% url 'blogs:create' %}" method="post">
+      {% csrf_token %}
+      <input type="text" name="title" class='blog-title' placeholder="Enter your title here" required>
+      <textarea name="content" class='editable medium-editor-textarea blogcontent"' rows="8" cols="80" placeholder="content">
+      </textarea>
+      <div class="images">
+        <input type="file" accept="image/*" name="image 1" class="image-upload">
+      </div>
+    </form>
+  </body>
+</html>

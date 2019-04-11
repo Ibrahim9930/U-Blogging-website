@@ -1,0 +1,69 @@
+{% extends "blogs/blog_base.html" %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container">
+      <div class="Profile_Info p-5 mt-3">
+          <div class="row">
+              <div class="col-2">
+                {% if blog_user.uer.profile_pic %}
+                <img src="{% static "media/{{blog_user.uer.profile_pic}}" %}" alt="">
+                {% else %}
+                <img src="{% static "css/uicon.png" %}" alt="">
+                {% endif %}
+              </div>
+              <div class="col-4">
+                <p>{{blog_user.firstname}} {{blog_user.lastname}}</p>
+                <span class="handle mt-n5">@{{blog_user.username}}</span>
+              </div>
+              <div class="col-6">
+                <p>{{blog_user.uer.bio}}</p>
+                <span class="join_time">Joined on : {{blog_user.date_joined|date:"d b Y"}}</span>
+                {% if user.is_authenticated and blog_user == user %}
+                  <span class="settings_icon">
+                   <img src="{% static "css/settings2.png" %}" alt="settings">
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+      </div>
+      <div class="container">
+        <div class="row">
+
+      <div class="col-md-8 col-sm-12 posts ">
+        {% for blog in blog_list %}
+          {% include "blogs/_blog.html" %}
+        {% endfor %}
+      </div>
+      <div class="col-md-4 col-sm-0" >
+        <div class="mycard card" style="width: 100%;">
+          <div class="card-body">
+            <h5 class="card-title">First trending titile</h5>
+            <h6 class="card-subtitle mb-2 text-muted">today</h6>
+            <p class="card-text">Some quick example text to build on the card title</p>
+            <a href="#" class="card-link">Card link</a>
+          </div>
+          <div class="mycard card" style="width: 100%;">
+            <div class="card-body">
+              <h5 class="card-title">First trending titile</h5>
+              <h6 class="card-subtitle mb-2 text-muted">today</h6>
+              <p class="card-text">Some quick example text to build on the card title</p>
+              <a href="#" class="card-link">Card link</a>
+            </div>
+            <div class="mycard card" style="width: 100%;">
+              <div class="card-body">
+                <h5 class="card-title">First trending titile</h5>
+                <h6 class="card-subtitle mb-2 text-muted">today</h6>
+                <p class="card-text">Some quick example text to build on the card title</p>
+                <a href="#" class="card-link">Card link</a>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+  </body>
+</html>
+{% endblock %}

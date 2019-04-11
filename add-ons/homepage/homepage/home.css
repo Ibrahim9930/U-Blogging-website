@@ -1,0 +1,48 @@
+body{
+  font-family: 'Open Sans', sans-serif;
+  background-color: rgb(230,230,230,1);
+}
+
+
+.btn{
+  margin-left: 10px;
+}
+
+.mycard {
+  background:linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 1) ), url(login/bg.jpg);
+  background-position: center;
+  background-size: contain;
+  font-family: 'Open Sans', sans-serif;
+  margin: auto;
+  margin-top: 10px;
+  color: white;
+
+}
+
+
+.trend{
+ margin-top: 10px;
+ color: grey;
+}
+
+.post-card{
+  margin-top: 20px;
+  background-color: rgb(240,240,240);
+}
+
+.card-title{
+
+
+}
+
+.writer{
+width: 30px;
+margin-bottom: 10px;
+display: inline;
+text-decoration: none;
+
+}
+.postedby{
+  font-size: 0.7em;
+  margin-left: 20px;
+}

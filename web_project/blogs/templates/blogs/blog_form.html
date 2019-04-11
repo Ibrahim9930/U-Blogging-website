@@ -1,0 +1,70 @@
+{% extends "blogs/blog_base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+
+<div class="container">
+
+  <form enctype="multipart/form-data" action="{% url 'blogs:create' %}" method="POST"  >
+    {% csrf_token %}
+    <div class="mt-5">
+      <label for="{{form.category.id_for_label}}">Category</label>
+      {{form.category}}
+    </div>
+
+    <input type="text" name="title" maxlength="255" placeholder="Title" title=""
+     id="id_title" class="blogtitle p-2 d-block mt-3 mb-2 textinputclass">
+
+    <textarea name="content" id='id_text' placeholder="Content" title="" required=""
+    id="id_content" style=" height: 500px; " cols="30"
+    class="editable2 medium-editor-textarea p-3 blogcontent"
+     rows="16">
+
+  </textarea>
+
+    <div class="images my-5">
+      <div class="row">
+
+        <div class="col-3">
+          <label for="img1" class="imageupload_label p-4 mb-3"> <img src="{% static 'css/plus-button-md.png' %}" alt=""> </label>
+          <input type="file" accept="image/*" class="imageupload" onchange="addUploadTag()" id="img1" value="">
+        </div>
+
+        <div class="col-3">
+          <label for="img2" class="imageupload_label p-4"> <img src="{% static 'css/plus-button-md.png' %}" alt=""> </label>
+          <input type="file" accept="image/*" class="imageupload" onchange="addUploadTag()" id="img2" value="">
+        </div>
+
+        <div class="col-3">
+          <label for="img3" class="imageupload_label p-4"> <img src="{% static 'css/plus-button-md.png' %}" alt=""> </label>
+          <input type="file" accept="image/*" class="imageupload" onchange="addUploadTag()" id="img3" value="">
+        </div>
+
+        <div class="col-3">
+          <label for="img4" class="imageupload_label p-4"> <img src="{% static 'css/plus-button-md.png' %}" alt=""> </label>
+          <input type="file" accept="image/*" class="imageupload" onchange="addUploadTag()" id="img4" value="">
+        </div>
+        <div class="col-3">
+          <label for="img5" class="imageupload_label p-4"> <img src="{% static 'css/plus-button-md.png' %}" alt=""> </label>
+          <input type="file" accept="image/*" class="imageupload" onchange="addUploadTag()" id="img5" value="">
+        </div>
+
+      </div>
+
+    </div>
+    <input type="submit" value="Post" class="btn btn-primary mb-5 btn-lg d-block">
+  </form>
+
+  <script>var editor = new MediumEditor('.editable2',{toolbar: {
+      buttons: ['bold', 'italic', 'quote','image'],
+      diffLeft: 25,
+      diffTop: 10,
+  },
+  });</script>
+
+
+</div>
+
+{% endblock %}

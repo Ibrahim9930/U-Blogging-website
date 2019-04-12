@@ -20,18 +20,25 @@ class CreateBlog(LoginRequiredMixin, SelectRelatedMixin, generic.CreateView):
     template_name='blogs/blog_form.html'
 
     def form_valid(self,form):
-        print(self.request.FILES)
-        for file in self.request.FILES:
-            print('in')
-            image=models.Image()
-            image.img = self.request.FILES[file]
-            image.post  = self.object
-            image.save()
+
         self.object = form.save(commit=False)
         self.object.author = self.request.user
         self.object.save()
 
+        for file in self.request.FILES:
+            image=models.Image()
+            image.img = self.request.FILES[file]
+            image.post  = self.object
+            image.save()
+
         return super().form_valid(form)
+
+    # model=models.Blog
+    # fields=("title","author","category","photo")
+    # template_name="blogs/test.html"
+    # def form_valid(self,form):
+    #     print(self.request.FILES)
+    #     return super().form_valid(form)
 
 
 class Uerblogs(generic.ListView):

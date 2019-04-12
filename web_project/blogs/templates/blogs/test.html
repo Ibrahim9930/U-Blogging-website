@@ -8,6 +8,7 @@
     <form action="{% url 'blogs:create' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{form}}
+      <input type="file" accept="image/*" name="image" value="">
       <input type="submit" name="" value="yalla">
     </form>
   </body>

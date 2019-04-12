@@ -18,7 +18,7 @@ class Blog(models.Model):
     # nays=models.ManyToManyField('Nay',related_name="post_nays")
     # comments=models.ManyToManyField('Comment',related_name="post_comments")
     content=models.TextField()
-    photo=models.ImageField(upload_to="images/")
+    # photo=models.ImageField(upload_to="images/")
 
     def __str__(self):
         return "{} by {}".format(self.title,self.author)

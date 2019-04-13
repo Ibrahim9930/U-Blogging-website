@@ -5,8 +5,11 @@ from django.views.generic import TemplateView
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from .forms import UserCreateForm
-
-
+from django.views import generic
+from django.contrib.auth.models import User
+from . import models
+from django.contrib.auth import get_user_model
+Usr = get_user_model()
 def Home(request):
     login_fail=False
     su_fail=False
@@ -51,3 +54,37 @@ def Home(request):
                                                 ,'form':user_form
                                                 ,'su_fail':su_fail
                                                 ,'login_fail':login_fail})
+class UpdateUer(generic.UpdateView):
+    model=models.Uer
+    template_name="accounts/settings.html"
+    fields=('bio',)
+
+    def form_valid(self,form):
+        if self.request.POST['fname']!="":
+            self.object.user.first_name=self.request.POST['fname']
+        if self.request.POST['lname']!="":
+            self.object.user.last_name=self.request.POST['lname']
+        if self.request.POST['email']!="":
+            self.object.user.email=self.request.POST['email']
+        if self.request.POST['bio']!="":
+            self.object.bio=self.request.POST['bio']
+        if self.request.POST['old_password']!="":
+            psswd=self.request.POST['old_password']
+            if self.object.user.check_password(psswd):
+                if self.request.POST['password1']!=self.request.POST['password2']:
+                    form.add_error('bio', 'Passwords don\'t match')
+                    return self.form_invalid(form)
+                elif self.request.POST['password1']!='':
+                    self.object.user.set_password(self.request.POST["password1"])
+            else :
+                form.add_error('bio', 'Wrong Password')
+                return self.form_invalid(form)
+        if len(self.request.FILES)>0:
+            self.object.profile_pic=self.request.FILES['pic']
+        self.object.user.save()
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.object.user
+        return context

@@ -1,0 +1,170 @@
+{% extends "accounts/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid">
+<div class="row">
+  <div class="col-lg-2"></div>
+<div class=" col-lg-5 col-sm-12 " style="margin-top:100px;">
+
+  <form enctype="multipart/form-data" method="post">
+    {{form.bio.errors}}
+    {% csrf_token %}
+    <div class="form-row">
+
+       <div class="col-sm-12 col-lg-6" >
+         <input type="text" name='fname' class="form-control" value="{{user.first_name}}" placeholder="First name" style="margin-bottom:10px;">
+       </div>
+
+       <div class="col-sm-12 col-lg-6">
+         <input type="text" name='lname' value="{{user.last_name}}" class="form-control" placeholder="Last name">
+       </div>
+     </div>
+
+
+     <div class="form-row">
+       <input type="email" name="email" value="{{user.email}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+     </div>
+
+
+     <div class="form-row">
+       <label for="comment">Bio:</label>
+       <textarea class="form-control" name="bio" rows="5" id="comment">{{user.uer.bio}}</textarea>
+     </div>
+
+     <div class="form-row">
+       <div class="col-12">
+      <label class="sr-only" for="inlineFormInputGroup">Old password</label>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">#</div>
+        </div>
+        <input type="password" name="old_password" class="form-control" id="inlineFormInputGroup" placeholder="Old password">
+      </div>
+    </div>
+
+     <div class="col-sm-12 col-lg-6">
+    <label class="sr-only" for="inlineFormInputGroup">New password</label>
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <div class="input-group-text">#</div>
+      </div>
+      <input type="password" name="password1" class="form-control" id="inlineFormInputGroup" placeholder="New password">
+    </div>
+  </div>
+  <div class="col-sm-12 col-lg-6">
+ <label class="sr-only" for="inlineFormInputGroup">New password</label>
+ <div class="input-group mb-2">
+   <div class="input-group-prepend">
+     <div class="input-group-text">#</div>
+   </div>
+   <input type="password" name="password2" class="form-control" id="inlineFormInputGroup" placeholder="New password">
+ </div>
+</div>
+
+</div>
+
+<div class="form-row">
+  <div class="custom-file">
+    <input type="file" accept="image/*" name="pic" class="custom-file-input" id="customFile">
+    <label class="custom-file-label" for="customFile">Change your photo</label>
+  </div>
+</div>
+
+<div class="form-row" style="margin-left:45%;">
+<button type="submit" class="btn btn-primary">Edit</button>
+</div>
+
+
+  </form>
+
+
+
+</div>
+
+  <div class="d-none d-lg-block col-lg-3  ">
+<div class="ss"style="width:300px; height:500px;">
+
+    <aside class="profile-card">
+      <header>
+        <!-- here’s the avatar -->
+        <a target="_blank" href="#">
+          {% if blog_user.uer.profile_pic %}
+          <img class="hoverZoomLink" src="{% static "media/{{blog_user.uer.profile_pic}}" %}" alt="">
+          {% else %}
+          <img class="hoverZoomLink" src="{% static "css/uicon.png" %}" alt="">
+          {% endif %}
+        </a>
+
+        <!-- the username -->
+        <h1>
+                {{user.username}}
+              </h1>
+
+        <!-- and role or location -->
+        <!--<h2>
+                {{user.uer.bio}}
+              </h2>-->
+
+      </header>
+
+      <!-- bit of a bio; who are you? -->
+      <div class="profile-bio">
+
+        <p>
+          {{user.uer.bio}}
+        </p>
+
+      </div>
+
+      <!-- some social links to show off -->
+      <ul class="profile-social-links">
+        <li>
+          <a target="_blank" href="https://www.facebook.com/creativedonut">
+            <i class="fa fa-facebook"></i>
+          </a>
+        </li>
+        <li>
+          <a target="_blank" href="https://twitter.com/dropyourbass">
+            <i class="fa fa-twitter"></i>
+          </a>
+        </li>
+        <li>
+          <a target="_blank" href="https://github.com/vipulsaxena">
+            <i class="fa fa-github"></i>
+          </a>
+        </li>
+        <li>
+          <a target="_blank" href="https://www.behance.net/vipulsaxena">
+
+            <i class="fa fa-behance"></i>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+</div>
+
+  </div>
+
+  <div class="col-lg-2"></div>
+
+</div>
+
+
+</div>
+
+
+
+<script type="text/javascript">
+
+  $('.t').click(function(){
+  $('.t').toggleClass('active');
+  $('.title').toggleClass('active');
+  $('nav').toggleClass('active');
+});
+
+</script>
+
+  {% endblock %}

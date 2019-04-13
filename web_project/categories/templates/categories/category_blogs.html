@@ -1,4 +1,4 @@
-{% extends "blogs/blog_base.html" %}
+{% extends "categories/category_base.html" %}
 
 {% load static %}
 
@@ -10,24 +10,17 @@
       <div class="Profile_Info p-5 mt-3">
           <div class="row">
               <div class="col-2">
-                {% if blog_user.uer.profile_pic %}
-                <img src="{% static "media/{{blog_user.uer.profile_pic}}" %}" alt="">
+                {% if cat.profile_pic %}
+                <img src="{% static "media/{{cat.profile_pic}}" %}" alt="">
                 {% else %}
                 <img src="{% static "css/uicon.png" %}" alt="">
                 {% endif %}
               </div>
               <div class="col-4">
-                <p>{{blog_user.first_name}} {{blog_user.last_name}}</p>
-                <span class="handle mt-n5">@{{blog_user.username}}</span>
+                <p>{{cat.name}}</p>
               </div>
               <div class="col-6">
-                <p>{{blog_user.uer.bio}}</p>
-                <span class="join_time">Joined on : {{blog_user.date_joined|date:"d b Y"}}</span>
-                {% if user.is_authenticated and blog_user == user %}
-                  <span class="settings_icon">
-                    <a href="{% url 'accounts:update' pk=blog_user.pk %}"><img src="{% static "css/settings2.png" %}" alt="settings"></a>
-                  </span>
-                {% endif %}
+                <p>{{cat.info}}</p>
               </div>
             </div>
       </div>

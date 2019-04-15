@@ -15,7 +15,7 @@
   <h5>{{blog.title}}</h5>
   <br>
   <p>{{blog.content|safe|truncatechars_html:450}}</p>
-  <a href="#" class="btn  btn-outline-secondary">see more</a>
+  <a href="{% url 'blogs:edit' pk=blog.pk %}" class="btn  btn-outline-secondary">see more</a>
 
   <span class="images">
     {% if blog.blog_images.count < 4 %}

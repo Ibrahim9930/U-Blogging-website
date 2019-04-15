@@ -18,3 +18,16 @@ class BlogForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'textinputclass'}),
             'content': forms.Textarea(attrs={'class': 'editable medium-editor-textarea postcontent'}),
         }
+
+class EditBlogForm(forms.ModelForm):
+
+    class Meta:
+        model=Blog
+        fields={
+            'title',
+            'content',
+        }
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'textinputclass'}),
+            'content': forms.Textarea(attrs={'class': 'editable medium-editor-textarea postcontent'}),
+        }

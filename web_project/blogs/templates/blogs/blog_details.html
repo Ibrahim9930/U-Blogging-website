@@ -1,0 +1,24 @@
+{% extends "blogs/blog_base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <div class="title my-5">
+        <span class="blog_title">{{blog.title|capfirst}}</span>
+        <span class="blog_time mx-5">Posted by {{blog.author.username}} at {{blog.time_written|date:"d M Y"}}</span>
+      </div>
+      <div class="blog_content">
+        {{blog.content|safe}}
+      </div>
+    </div>
+    <div class="col-4">
+      {% for image in blog.blog_images.all %}
+      <div class="card my-5" style="width: 18rem;">
+        <img src="{{image.img.url}}" class="card-img-top" alt="">
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}

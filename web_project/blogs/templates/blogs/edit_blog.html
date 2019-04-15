@@ -1,0 +1,57 @@
+{% extends "blogs/blog_base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <form class="mt-3" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+
+
+        <input type="text" name="title" maxlength="255" placeholder="Title" title=""
+         id="id_title" class="blogtitle p-2 d-block mt-3 mb-2 textinputclass" value="{{blog.title}}">
+
+        <textarea name="content" id='id_text' placeholder="Content" title="" required=""
+        id="id_content" style=" height: 500px; " cols="30"
+        class="editable2 medium-editor-textarea p-3 blogcontent"
+         rows="16">
+         {{blog.content|safe}}
+      </textarea>
+      <div class="images my-5 card-deck">
+        <div class="row">
+          {% for img in blog.blog_images.all %}
+          <div class="col-3">
+            <img src="{{img.img.url}}" class="card-img-top" alt="">
+          </div>
+          {% endfor %}
+          <div class="col-3">
+              <label for="img1" class="imageupload_label p-4 mb-3"> <img src="{% static 'css/plus-button-md.png' %}" alt=""> </label>
+              <input type="file" accept="image/*" class="imageupload" name='image' id="img1" value="">
+          </div>
+
+      </div>
+
+        <input type="submit" value="Edit" class="btn btn-primary mb-5 btn-lg d-block">
+      </form>
+    </div>
+
+  </div>
+  <div class="col-2">
+    <div class="card mt-5" style="width: 18rem;">
+      <img src="{{blog.category.pic.url}}" class="card-img-top" alt="">
+      <div class="card-body">
+        <p class="card-text" align="center">{{blog.category.name}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>var editor = new MediumEditor('.editable2',{toolbar: {
+    buttons: ['bold', 'italic', 'quote','image'],
+    diffLeft: 25,
+    diffTop: 10,
+},
+});</script>
+
+{% endblock %}

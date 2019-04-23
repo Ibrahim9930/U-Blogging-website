@@ -50,6 +50,6 @@ $statement->bindValue(':url', $info);
 $statement->bindValue(':time', slugify($name) );
 $statement->execute();
 
-header("Refresh:0; url=index.php");
+header("Refresh:0; url=home.php");
 }
  ?>

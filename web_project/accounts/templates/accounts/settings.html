@@ -3,6 +3,8 @@
 {% block content %}
 
 <div class="container-fluid">
+{% if  user.is_authenticated and blog_user == user %}
+
 <div class="row">
   <div class="col-lg-2"></div>
 <div class=" col-lg-5 col-sm-12 " style="margin-top:100px;">
@@ -13,24 +15,24 @@
     <div class="form-row">
 
        <div class="col-sm-12 col-lg-6" >
-         <input type="text" name='fname' class="form-control" value="{{user.first_name}}" placeholder="First name" style="margin-bottom:10px;">
+         <input type="text" name='fname' class="form-control" value="{{blog_user.first_name}}" placeholder="First name" style="margin-bottom:10px;">
        </div>
 
        <div class="col-sm-12 col-lg-6">
-         <input type="text" name='lname' value="{{user.last_name}}" class="form-control" placeholder="Last name">
+         <input type="text" name='lname' value="{{blog_user.last_name}}" class="form-control" placeholder="Last name">
        </div>
      </div>
 
 
      <div class="form-row">
-       <input type="email" name="email" value="{{user.email}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+       <input type="email" name="email" value="{{blog_user.email}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
      </div>
 
 
      <div class="form-row">
        <label for="comment">Bio:</label>
-       <textarea class="form-control" name="bio" rows="5" id="comment">{{user.uer.bio}}</textarea>
+       <textarea class="form-control" name="bio" rows="5" id="comment">{{blog_user.uer.bio}}</textarea>
      </div>
 
      <div class="form-row">
@@ -82,7 +84,10 @@
 
 
 </div>
-
+{% else %}
+    <br>
+    <h2 class="user_not_found mt-5 text-center">You have to be logged in as {{blog_user.username}} to access this page</h2>
+{% endif %}
   <div class="d-none d-lg-block col-lg-3  ">
 <div class="ss"style="width:300px; height:500px;">
 
@@ -91,7 +96,7 @@
         <!-- here’s the avatar -->
         <a target="_blank" href="#">
           {% if blog_user.uer.profile_pic %}
-          <img class="hoverZoomLink" src="{% static "media/{{blog_user.uer.profile_pic}}" %}" alt="">
+          <img class="hoverZoomLink" src="{{blog_user.uer.profile_pic.url}}" alt="">
           {% else %}
           <img class="hoverZoomLink" src="{% static "css/uicon.png" %}" alt="">
           {% endif %}
@@ -99,7 +104,7 @@
 
         <!-- the username -->
         <h1>
-                {{user.username}}
+                {{blog_user.username}}
               </h1>
 
         <!-- and role or location -->
@@ -113,7 +118,7 @@
       <div class="profile-bio">
 
         <p>
-          {{user.uer.bio}}
+          {{blog_user.uer.bio}}
         </p>
 
       </div>

@@ -12,6 +12,9 @@ height: 100vh;
 height: 100vh;
 }
 
+.user_not_found{
+  font-size: 1.5em;
+}
 .form-row{
   margin-top: 10px;
 }

@@ -3,6 +3,10 @@ body{
   background-color: rgb(230,230,230,1);
 }
 
+.user_not_found{
+  font-size: 1.5em;
+}
+
 .blog_title {
     font-size: 2em;
     font-weight: bold;
@@ -106,6 +110,11 @@ body{
 .card-title{
 
 
+}
+
+.comment{
+  background-color: grey;
+  border-radius: 15px;
 }
 
 .writer{

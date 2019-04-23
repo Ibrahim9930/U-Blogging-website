@@ -54,7 +54,7 @@ class Nay(models.Model):
 class Comment(models.Model):
 
     author=models.ForeignKey(User,on_delete=models.CASCADE)#may cause the comment to be poseted by the active user
-    post=models.ForeignKey(Blog,on_delete=models.CASCADE,related_name="comments")
+    post=models.ForeignKey(Blog,on_delete=models.CASCADE,related_name="blog_comments")
     content=models.TextField(max_length=280)
 
     def __str__(self):

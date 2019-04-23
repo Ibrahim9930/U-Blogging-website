@@ -3,7 +3,7 @@
   <div class="card-body">
   <a href="#">
     {% if blog.author.uer.profile_pic %}
-    <img class="writer"src="{{blog.author.uer.profile_pic}}" alt="">
+    <img class="writer"src="{{blog.author.uer.profile_pic.url}}" alt="">
     {% else %}
     <img class="writer" src="{% static "css/uicon.png" %}" alt="">
     {% endif %}
@@ -15,7 +15,7 @@
   <h5>{{blog.title}}</h5>
   <br>
   <p>{{blog.content|safe|truncatechars_html:450}}</p>
-  <a href="{% url 'blogs:edit' pk=blog.pk %}" class="btn  btn-outline-secondary">see more</a>
+  <a href="{% url 'blogs:details' pk=blog.pk %}" class="btn  btn-outline-secondary">see more</a>
 
   <span class="images">
     {% if blog.blog_images.count < 4 %}

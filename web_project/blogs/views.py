@@ -56,6 +56,14 @@ class BlogDetails(generic.DetailView):
     model=models.Blog
     template_name="blogs/blog_details.html"
 
+class HomePage(generic.ListView):
+    model=models.Blog
+
+class DeleteBlog(generic.DeleteView):
+
+    model=models.Blog
+    template_name="bye_blog.html"
+
 class Uerblogs(generic.ListView):
 
     model=models.Blog

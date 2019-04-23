@@ -15,6 +15,10 @@ body{
 
 }
 
+.user_not_found{
+  font-size: 1.5em;
+}
+
 .signup{
   display: none;
 }

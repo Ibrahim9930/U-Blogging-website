@@ -19,11 +19,10 @@ $db = new MyDB();
 
 $statement = $db->prepare('INSERT INTO "blogs_comment" ("id","content", "author_id", "post_id")
     VALUES (:id,:content, :author_id, :post_id)');
-
-$query = ('select id from auth_user where username="'.$user.'"');
+$query = 'select id from auth_user where username="'.$user.'"';
 $ret = $db->query($query);
 $row = $ret->fetchArray(SQLITE3_ASSOC);
-$statement->bindValue(':author_id', $row);
+$statement->bindValue(':author_id', $row['id']);
 $statement->bindValue(':content', $content);
 $statement->bindValue(':post_id', $blog);
 $statement->execute();

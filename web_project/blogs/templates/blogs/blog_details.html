@@ -1,7 +1,7 @@
 {% extends "blogs/blog_base.html" %}
 {% block content %}
 {% load static %}
-<div class="container">
+<div class="container" style="margin-bottom:20px;">
   <div class="row">
     <div class="col-8">
       <div class="title my-5">
@@ -31,7 +31,7 @@
 
   <form action="http://127.0.0.1/U-Blogging-website/web_project/php/comments/addcomment.php" method="post" >
     <input type="text" name="blog" value="{{blog.pk}}" hidden>
-    <input type="text" name="user" value="{{user.userID}}" hidden>
+    <input type="text" name="user" value="{{user.username}}" hidden>
 
     <div class="form-group">
       <label for="exampleFormControlTextarea1">comment:</label>
@@ -46,10 +46,10 @@
 
 
 
-  <div class="row">
-    <div class="col-8">
+  <div class="row" >
+    <div class="col-12">
       {% for comment in blog.blog_comments.all %}
-        <div class="comment p-3 m-3">
+        <div class="comment p-3 m-3" style="background:rgb(230, 230, 230);">
           {% if comment.author.uer.profile_pic.url %}
           <span class="writer_picture mr-5"> <img class="writer" src="{{comment.author.uer.profile_pic.url}}" alt=""> </span>
           {% else %}

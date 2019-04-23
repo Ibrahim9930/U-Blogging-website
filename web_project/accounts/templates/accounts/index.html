@@ -155,6 +155,21 @@
 
 <script type="text/javascript">
 
+var a="{{login_fail}}";
+var b="{{su_fail}}";
+if(a=="True"){
+  document.getElementById('loginbtn').style.display="none";
+  document.getElementById('signin').classList.remove("signin");
+  document.getElementById('Signupbtn').style.display="none";
+}
+else if(b=="True"){
+  document.getElementById('Signupbtn').style.display="none";
+  document.getElementById('signup').style.display="block";
+  document.getElementById('loginbtn').style.display="none";
+  document.getElementById('op').style.display="none";
+}
+
+
   document.getElementById('whatisu').addEventListener('click', function() {
     setTimeout(function(){
     document.getElementById('first').classList.add('hide');
@@ -206,7 +221,7 @@
   });
 
   document.getElementById('loginbtn').addEventListener('click', function() {
-
+    document.getElementById('Signupbtn').style.display="none";
     document.getElementById('loginbtn').style.display="none";
     document.getElementById('signin').classList.remove("signin");
 
@@ -224,6 +239,7 @@ document.getElementById('Signupbtn').addEventListener('click', function() {
 });
 
 document.getElementById('back').addEventListener('click', function() {
+  document.getElementById('Signupbtn').style.display="block";
   document.getElementById('loginbtn').style.display="block";
   document.getElementById('signin').classList.add("signin");
 

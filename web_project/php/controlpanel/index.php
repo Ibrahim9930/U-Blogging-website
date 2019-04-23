@@ -34,7 +34,7 @@
 
 class MyDB extends SQLite3 {
    function __construct() {
-      $this->open('C:\Users\khameesiyadjamoos\Desktop\django\U-Blogging-website-master\web_project\db.sqlite3');
+     $this->open('..\..\db.sqlite3');
    }
 }
 $db = new MyDB();
@@ -50,17 +50,14 @@ echo'</div>';
 
  }
 
- echo ' <button type="button" class="btn btn-primary btn-lg">Add</button>';
  ?>
+
+
 
  <form method="post" action="addc.php">
   <div class="form-group">
     <label for="exampleInputEmail1">Name:</label>
     <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="name">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">slug:</label>
-    <input name="slug" type="text" class="form-control" id="exampleInputPassword1" placeholder="pla pla ">
   </div>
   <div class="form-group">
     <label for="exampleFormControlTextarea1">about</label>

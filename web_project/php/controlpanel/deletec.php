@@ -1,7 +1,7 @@
 <?php
 class MyDB extends SQLite3 {
    function __construct() {
-      $this->open('C:\Users\khameesiyadjamoos\Desktop\django\U-Blogging-website-master\web_project\db.sqlite3');
+     $this->open('..\..\db.sqlite3');
    }
 }
 

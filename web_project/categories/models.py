@@ -12,7 +12,7 @@ class Category(models.Model):
     info=models.TextField(max_length=255,blank=True,default="")
     slug = models.SlugField(allow_unicode=True, unique=True)
     Members=models.ManyToManyField(User,related_name="members")
-    pic=models.ImageField(upload_to="categories_photos")
+    pic=models.ImageField(upload_to="categories_photos" ,null=True)
     def __str__(self):
         return self.name
 

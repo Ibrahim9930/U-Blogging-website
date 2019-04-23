@@ -46,17 +46,21 @@
 
 
 
-  <div class="row" >
+  <div class="row" style >
     <div class="col-12">
       {% for comment in blog.blog_comments.all %}
         <div class="comment p-3 m-3" style="background:rgb(230, 230, 230);">
-          {% if comment.author.uer.profile_pic.url %}
-          <span class="writer_picture mr-5"> <img class="writer" src="{{comment.author.uer.profile_pic.url}}" alt=""> </span>
-          {% else %}
-          <span class="writer_picture mr-5"> <img class="writer" src="{% static "css/uicon.png" %}" alt=""> </span>
-          {% endif %}
-          <span class="writer_name ml-5">{{comment.author.username}}</span>
+          <span style=" font-weight:bold; color:grey;" class="writer_name ml-5">{{comment.author.username}}
+               {% if user.is_authenticated and comment.author == user %}
+               <form class="" action="http://127.0.0.1/U-Blogging-website/web_project/php/comments/deletecomment.php" method="post">
+                 <input type="text" name="id" value="{{comment.id}}" hidden>
+                <button type="submit" style="float:right;" class="btn btn-link"> <b>Delete</b> </button>
+              </form>
+             {% endif %}
+           </span>
+
           <p ="comment_content">{{comment.content}}</p>
+
         </div>
       {% endfor %}
   </div>

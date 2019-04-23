@@ -1,14 +1,15 @@
 <?php
 class MyDB extends SQLite3 {
    function __construct() {
-      $this->open('C:\Users\khameesiyadjamoos\Desktop\django\U-Blogging-website-master\web_project\db.sqlite3');
+     $this->open('..\..\db.sqlite3');
    }
 }
 
-if(isset($_POST['userID']))
+if(isset($_POST['id']))
 {
     $db = new MyDB();
-    $db->exec( 'DELETE FROM blogs_Comment WHERE id='.$_POST['userID']);
+    $db->exec( 'DELETE FROM blogs_Comment WHERE id='.$_POST['id']);
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
  ?>

@@ -57,6 +57,7 @@ class BlogDetails(generic.DetailView):
     template_name="blogs/blog_details.html"
 
 class HomePage(generic.ListView):
+
     model=models.Blog
 
 class DeleteBlog(generic.DeleteView):

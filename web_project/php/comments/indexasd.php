@@ -86,8 +86,9 @@ return $row["id"];
 ?>
 <script type="text/javascript">
 function delete1(e){
-  var name=e.name;
+    var name=e.name;
   document.getElementById(e.name).style.display="none";
+
 $.ajax({ url: 'deletecomment.php',
        data: "userID=" + name,
        type: 'post',

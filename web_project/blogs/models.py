@@ -9,6 +9,7 @@ User = get_user_model()
 
 class Blog(models.Model):
 
+    points=models.IntegerField(default=0)
     title=models.CharField(max_length=255, unique=False, blank=True, default="")
     author=models.ForeignKey(User,on_delete=models.CASCADE,related_name="blogs")
     category=models.ForeignKey(Category,on_delete=models.CASCADE,related_name="cat_blogs")

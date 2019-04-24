@@ -9,4 +9,5 @@ urlpatterns=[
     path('edit/<int:pk>',views.EditBlog.as_view(),name='edit'),
     path('<int:pk>/',views.BlogDetails.as_view(),name="details"),
     path('delete/<int:pk>',views.DeleteBlog.as_view(),name="delete"),
+    path('home/',views.HomePage.as_view(),name="homepage"),
 ]

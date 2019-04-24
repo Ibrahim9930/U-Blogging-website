@@ -8,7 +8,7 @@ from braces.views import SelectRelatedMixin
 
 from . import forms
 from . import models
-
+from categories.models import Category,Subscriber
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -59,6 +59,27 @@ class BlogDetails(generic.DetailView):
 class HomePage(generic.ListView):
 
     model=models.Blog
+    template_name = "blogs/home.html"
+
+    def get_queryset(self):
+        try:
+            cats=[]
+            i=0
+            categories = Subscriber.objects.raw("select id,category_id FROM categories_subscriber WHERE member_id=%s",[self.request.user.id])
+            for cat in categories:
+                cats.append(cat.category)
+            print(cats)
+            self.blogs=models.Blog.objects.filter(category__in=cats)
+            self.trending=models.Blog.objects.order_by("points")
+        except User.DoesNotExist:
+            raise Http404
+        return self.blogs.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["blogs"] = self.blogs
+        context["trending"]=self.trending
+        return context
 
 class DeleteBlog(generic.DeleteView):
 

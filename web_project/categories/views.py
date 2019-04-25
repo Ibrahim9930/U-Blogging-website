@@ -1,7 +1,11 @@
 from django.shortcuts import render
-from .models import Category
+from .models import Category,Subscriber
 from blogs import models as m
+from django.http import Http404
 from django.views import generic
+from django.utils.text import slugify
+from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 class Categoryblogs(generic.ListView):
@@ -14,6 +18,16 @@ class Categoryblogs(generic.ListView):
             self.blog_category = Category.objects.prefetch_related("cat_blogs").get(
                 name__iexact=self.kwargs.get("name")
             )
+            name=slugify(self.kwargs.get("name"))
+            category = Category.objects.get(slug=name)
+            subscribed = Subscriber.objects.raw("SELECT id From categories_subscriber where member_id=%s and category_id=%s",[self.request.user.id,category.id])
+            # for s in subscribed:
+            #     self.subscribed=s
+            if len(subscribed) == 1:
+                self.is_subscribed=subscribed[0]
+            else:
+                self.is_subscribed=None
+
         except Category.DoesNotExist:
             raise Http404
         else:
@@ -22,4 +36,24 @@ class Categoryblogs(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["cat"] = self.blog_category
+        context["is_subscribed"]=self.is_subscribed
         return context
+
+def Subscribe(request,name):
+
+    subbed=Subscriber()
+    subbed.member=request.user
+    cat_name=slugify(name)
+    subbed.category=Category.objects.get(slug=cat_name)
+    subbed.save()
+
+    return HttpResponseRedirect(reverse_lazy("categotries:category_blogs",kwargs={"name":cat_name}))
+
+def Unsubscribe(request,name):
+
+    cat_name=slugify(name)
+    category=Category.objects.get(slug=cat_name)
+    subbed=Subscriber.objects.get(member=request.user,category=category)
+    subbed.delete()
+
+    return HttpResponseRedirect(reverse_lazy("categotries:category_blogs",kwargs={"name":cat_name}))

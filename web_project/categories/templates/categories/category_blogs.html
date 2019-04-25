@@ -3,8 +3,6 @@
 {% load static %}
 
 {% block content %}
-<body style="background-color: rgb(230,230,230,1);">
-
 
     <div class="container">
       <div class="Profile_Info p-5 mt-3">
@@ -21,6 +19,15 @@
               </div>
               <div class="col-6">
                 <p>{{cat.info}}</p>
+                {% if is_subscribed %}
+                  <span class="sub-unsub">
+                    <a href="{% url 'categotries:unsubscribe' name=cat.slug %}" class="unsub-btn p-2">Subscribed</a>
+                  </span>
+                  {% else %}
+                  <span class="sub-unsub">
+                    <a href="{% url 'categotries:subscribe' name=cat.slug %}" class="sub-btn p-2">Subscribe</a>
+                  </span>
+                {% endif %}
               </div>
             </div>
       </div>
@@ -60,6 +67,31 @@
     </div>
   </div>
 </div>
-  </body>
-</html>
+<script type="text/javascript">
+    sub_btn=$(".sub-btn")
+    unsub_btn=$(".unsub-btn")
+
+    sub_btn.mouseenter(function(event){
+      sub_btn.css('color',"white")
+      sub_btn.css("background-color","#3178e1")
+    })
+
+    sub_btn.mouseleave(function(event){
+      sub_btn.css('color',"#0000EE")
+      sub_btn.css("background-color","white")
+    })
+
+    unsub_btn.mouseenter(function(event){
+      unsub_btn.css('color',"white")
+      unsub_btn.css("background-color","#3178e1")
+      unsub_btn.text("Unsubscribe")
+    })
+
+    unsub_btn.mouseleave(function(event){
+      unsub_btn.css('color',"#0000EE")
+      unsub_btn.css("background-color","white")
+      unsub_btn.text("Subscribed")
+    })
+
+</script>
 {% endblock %}

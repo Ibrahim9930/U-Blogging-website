@@ -1,6 +1,5 @@
 .bodyz{
   font-family: 'Open Sans', sans-serif;
-  background-color: rgb(230,230,230,1);
 }
 
 .user_not_found{
@@ -10,6 +9,12 @@
 .blog_title {
     font-size: 2em;
     font-weight: bold;
+}
+
+.profile_pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
 }
 
 .blog_time {
@@ -41,8 +46,8 @@
 
 .settings_icon {
     position: absolute;
-    top: 60px;
-    left: 500px;
+    top: 13vh;
+    left: 37vw;
 }
 .sub-unsub{
     position: absolute;

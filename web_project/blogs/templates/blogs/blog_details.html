@@ -1,6 +1,9 @@
 {% extends "blogs/blog_base.html" %}
-{% block content %}
 {% load static %}
+{% block color %}
+  <link rel="stylesheet" href="{% static "css/white.css" %}">
+{% endblock %}
+{% block content %}
 <div class="container" style="margin-bottom:20px;">
   <div class="row">
     <div class="col-8">
@@ -27,8 +30,6 @@
     </div>
   </div>
 
-
-
   <form action="http://127.0.0.1/U-Blogging-website/web_project/php/comments/addcomment.php" method="post" >
     <input type="text" name="blog" value="{{blog.pk}}" hidden>
     <input type="text" name="user" value="{{user.username}}" hidden>
@@ -42,11 +43,7 @@
   </div>
   </form>
 
-
-
-
-
-  <div class="row" style >
+<div class="row" style >
     <div class="col-12">
       {% for comment in blog.blog_comments.all %}
         <div class="comment p-3 m-3" style="background:rgb(230, 230, 230);">
@@ -66,5 +63,4 @@
   </div>
 
 </div>
-
 {% endblock %}

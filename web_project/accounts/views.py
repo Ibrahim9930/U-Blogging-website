@@ -43,7 +43,7 @@ def Home(request):
                 psswd=request.POST['password1']
                 user.set_password(psswd)
                 user.save()
-                return HttpResponseRedirect("http://127.0.0.1/U-Blogging-website/web_project/php/welcome.php")
+                return HttpResponseRedirect("http://127.0.0.1/U-Blogging-website/web_project/php/welcome.php?username="+request.POST['username'])
             else:
 
                 su_fail=True

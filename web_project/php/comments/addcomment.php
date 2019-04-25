@@ -1,12 +1,11 @@
 <?php
 
+
 class MyDB extends SQLite3 {
    function __construct() {
       $this->open('..\..\db.sqlite3');
    }
 }
-
-echo "string";
 
 if (isset($_POST['content'])) {
 
@@ -31,4 +30,4 @@ header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 
- ?>
+?>

@@ -69,7 +69,7 @@ class HomePage(generic.ListView):
             for cat in categories:
                 cats.append(cat.category)
             print(cats)
-            self.blogs=models.Blog.objects.filter(category__in=cats)
+            self.blogs=models.Blog.objects.filter(category__in=cats).order_by("time_written")
             self.trending=models.Blog.objects.order_by("points")
         except User.DoesNotExist:
             raise Http404
@@ -84,7 +84,10 @@ class HomePage(generic.ListView):
 class DeleteBlog(generic.DeleteView):
 
     model=models.Blog
-    template_name="bye_blog.html"
+    template_name="blogs/bye_blog.html"
+
+    def get_success_url(self):
+        return reverse_lazy("blogs:homepage")
 
 class Uerblogs(generic.ListView):
 

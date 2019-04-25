@@ -2,9 +2,10 @@
 {% load static %}
 {# <link rel="stylesheet" href="{% static "css/home.css" %}"> #}
 {% block content %}
+<body style="background-color:rgb(230,230,230)">
 
 <div class="container">
-  <div class="row" style="margin-top:10vh;">
+  <div class="row">
     {% for blog in trending|slice:':4'  %}
     <div class="col-md-3">
     <div class="mycard card" style="width: 100%;">
@@ -31,28 +32,29 @@
 
   </div>
 
-  <div class="col-md-4 col-sm-0" >
-    <div class="userspace" id="userspace" >
+<div class="col-md-4 col-sm-0" >
+  <div class="userspace" id="userspace" >
 
-    <div class="card" style="height: 85vh; width:18rem">
-  <div class="card-body">
-    {% if blog_user.uer.profile_pic %}
+    <div class="card" style="height: 60vh; width:18rem">
+      <div class="card-body">
+        {% if user.uer.profile_pic %}
 
-    <img src="{{blog_user.uer.profile_pic.url}}" class="userimage" alt="">
-    {% else %}
-    <img src="{% static "css/uicon.png" %}" alt="">
-    {% endif %}
-    <h5 class="card-title" style="text-align:center;">{{user.first_name}} {{user.lastname}}</h5>
-    <br>
+        <img src="{{user.uer.profile_pic.url}}" class="userimage my-3" alt="">
+        {% else %}
+        <img src="{% static "css/uicon.png" %}" class="userimage my-3" alt="">
+        {% endif %}
+        <h5 class="card-title" style="text-align:center;">{{user.first_name}} {{user.last_name}}</h5>
+        <br>
 
-    <h5  style="text-align:center;" >BIO</h5>
-    <p class="card-text">{{user.uer.bio}}</p>
+        <h5  style="text-align:center;" >BIO</h5>
+        <p class="card-text">{{user.uer.bio}}</p>
 
-    <h5  style="text-align:center;" >Joined At</h5>
-    <p class="card-text" >{{blog_user.date_joined|date:"d b Y"}}</p>
+        <h5  style="text-align:center;" >Joined At</h5>
+        <p class="card-text" style="text-align:center;">{{user.date_joined|date:"d b Y"}}</p>
 
-    <a href="{% url 'accounts:update' pk=user.id %}" class="btn btn-primary">Settings</a>
-  </div>
+        <a href="{% url 'blogs:uerblogs' username=user.username %}" class="btn btn-primary mr-5">Blogs</a>
+        <a href="{% url 'accounts:update' pk=user.id %}" class="btn btn-dark">Settings</a>
+      </div>
 </div>
 </div>
 
@@ -81,4 +83,6 @@ function myFunction() {
 
 
 </script>
+</body>
+
 {% endblock %}

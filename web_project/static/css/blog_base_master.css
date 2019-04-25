@@ -1,4 +1,4 @@
-body{
+.bodyz{
   font-family: 'Open Sans', sans-serif;
   background-color: rgb(230,230,230,1);
 }
@@ -43,6 +43,25 @@ body{
     position: absolute;
     top: 60px;
     left: 500px;
+}
+.sub-unsub{
+    position: absolute;
+    top: 45px;
+    left: 400px;
+}
+
+.sub-btn {
+    border-style: solid;
+    border-color: #3178e1;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.unsub-btn {
+    border-style: solid;
+    border-color: #3178e1;
+    border-radius: 5px;
+    text-decoration: none;
 }
 
 .imageupload {

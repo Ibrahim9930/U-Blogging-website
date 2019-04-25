@@ -81,6 +81,13 @@ class HomePage(generic.ListView):
         context["trending"]=self.trending
         return context
 
+
+
+
+
+
+
+
 class DeleteBlog(generic.DeleteView):
 
     model=models.Blog

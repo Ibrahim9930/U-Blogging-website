@@ -1,7 +1,42 @@
 <?php
-$username=$_GET['username'];
+class MyDB extends SQLite3 {
+   function __construct() {
+     $this->open('..\db.sqlite3');
+   }
+}
 
- ?>
+
+
+if(!isset($_GET['username'])){
+  header("Location: http://127.0.0.1/U-Blogging-website/web_project/php/404/404.html");
+}
+
+$username=$_GET['username'];
+$db=new MyDB();
+
+
+
+$query1 = 'select id from auth_user where username="'.$username.'"';
+$ret1 = $db->query($query1);
+$row1 = $ret1->fetchArray(SQLITE3_ASSOC);
+
+
+
+
+$query = 'select visited from accounts_uer where user_id="'.$row1["id"].'"';
+$ret = $db->query($query);
+$row = $ret->fetchArray(SQLITE3_ASSOC);
+
+
+if($row["visited"]==1){
+  header("Location: http://127.0.0.1/U-Blogging-website/web_project/php/404/404.html");
+}
+
+$query = $db->exec( ' UPDATE accounts_uer SET visited=1 WHERE user_id="'.$row1["id"].'"' );
+
+
+
+?>
 
 
 <html lang="en" dir="ltr">
@@ -13,11 +48,11 @@ $username=$_GET['username'];
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   </head>
 
   <style media="screen">
-
 body{
   background: black;
 }
@@ -31,16 +66,16 @@ body{
 <div class="row">
   <div class="col-12">
 
-    <form>
+    <form method="post" action="updateuser.php">
 
       <div class="form-row" style="">
 
         <div class="col">
-          <input type="text" class="form-control" placeholder="First name">
+          <input name="first" type="text" class="form-control" placeholder="First name">
         </div>
 
         <div class="col">
-          <input type="text" class="form-control" placeholder="Last name">
+          <input name="last" type="text" class="form-control" placeholder="Last name">
         </div>
 
       </div>
@@ -61,16 +96,11 @@ body{
 
 
             <?php
-            class MyDB extends SQLite3 {
-               function __construct() {
-                 $this->open('..\db.sqlite3');
-               }
-            }
 
             $db = new MyDB();
             $query =  "SELECT * FROM categories_category"; // to change whith post id
             $ret = $db->query($query);
-
+            echo '  <input name="username" type="text" value="'.$username.'" hidden>"';
             while($row = $ret->fetchArray(SQLITE3_ASSOC) )
              {
                echo '
@@ -78,7 +108,7 @@ body{
                  <div class="card text-center" style=" margin-bottom: 10px; width: 11rem; background:rgb(240,248,255);">
                    <div class="card-body">
                      <h5 class="card-title">'.$row['name'].'</h5>
-                     <button name="'. $row['id'].'" onclick="add(this)" type="button" class="btn btn-dark">Add</button>
+                     <button  id="'.$username.'"name="'. $row['id'].'" onclick="add(this)" type="button" class="btn btn-dark">Add</button>
                    </div>
                  </div>
 
@@ -86,29 +116,47 @@ body{
       ';
              }
 
+             $db->close();
+             unset($db);
              ?>
-
-
-
-
-
-
-
-
       </div>
-      <button style="margin-top:50px; width:100%;" type="button" class="btn btn-primary btn-lg btn-block">Start</button>
-
+      <button style="margin-top:50px; width:100%;" type="submit" class="btn btn-primary btn-lg btn-block">Start</button>
     </form>
-
   </div>
-
-
-
+</div>
 </div>
 
 
 
-</div>
+
+
+<script type="text/javascript">
+  function add(b){
+    var cat=b.name;
+    var user=b.id;
+    console.log(cat)
+    console.log(user)
+var dataString = 'user='+user+'&cat='+cat;
+
+    $.ajax({ url: 'addsub.php',
+           data: dataString ,
+           type: 'post',
+           success: function() {
+             document.getElementById(b.name).style.display="none";
+                    }
+    });
+
+  }
+</script>
+
+
+
+
+
+
+
+
+
 <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
 <div id='stars'></div>
 <div id='stars2'></div>
@@ -201,32 +249,6 @@ to {
 }
 
 </style>
-
-
-
-
-
-
-
-<script type="text/javascript">
-function add(e){
-  var name=e.name;
-  document.getElementById(e.name).style.display="none";
-$.ajax({ url: 'addcat.php',
-       data: "id=" + name,
-       type: 'post',
-       success: function() {
-                }
-});
-}
-
-
-
-</script>
-
-
-
-
 
   </body>
 </html>

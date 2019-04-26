@@ -1,5 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import ( HttpResponseRedirect,
+                          HttpResponse,
+                          JsonResponse,
+                          )
 from django.urls import reverse_lazy
 from django.http import Http404
 from django.views import generic
@@ -14,6 +18,7 @@ User = get_user_model()
 
 # Create your views here.
 
+# ----class based view----
 class CreateBlog(LoginRequiredMixin, SelectRelatedMixin, generic.CreateView):
 
     form_class=forms.BlogForm
@@ -81,13 +86,6 @@ class HomePage(generic.ListView):
         context["trending"]=self.trending
         return context
 
-
-
-
-
-
-
-
 class DeleteBlog(generic.DeleteView):
 
     model=models.Blog
@@ -106,7 +104,7 @@ class Uerblogs(generic.ListView):
             self.blog_user = User.objects.prefetch_related("blogs").get(
                 username__iexact=self.kwargs.get("username")
             )
-            # self.trending = self.blog_user.blogs.order_by("points")
+            self.trending = self.blog_user.blogs.order_by("points")
         except User.DoesNotExist:
             raise Http404
         else:
@@ -115,5 +113,21 @@ class Uerblogs(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["blog_user"] = self.blog_user
-        # context["trending"]  = self.trending
+        context["trending"]  = self.trending
         return context
+
+# ----function based views----
+
+def yay(request):
+
+    print("in")
+    blog_id = request.GET["blog_id"]
+    yay = models.Yay()
+    blog = models.Blog.objects.get(id=blog_id)
+    yay.yayed = blog
+    yay.yayer = request.user
+    yay.save()
+    data = {
+        "points":blog.points
+    }
+    return JsonResponse(data)

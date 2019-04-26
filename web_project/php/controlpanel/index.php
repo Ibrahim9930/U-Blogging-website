@@ -1,11 +1,9 @@
-
-
 <?php
    ob_start();
    session_start();
    if (isset($_SESSION["username"]))
    {
-     header("Refresh:0; url=home.php");
+     header("Refresh:0; url=cpanel.php");
 
    }
 ?>
@@ -105,7 +103,7 @@ background:  rgb(0,0,0);
                  $_SESSION['timeout'] = time();
                  $_SESSION['username'] = 'admin';
 
-                 header("Refresh:0; url=home.php");
+                 header("Refresh:0; url=cpanel.php");
               }else {
                  $msg = 'Wrong username or password';
               }

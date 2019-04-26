@@ -27,6 +27,8 @@ urlpatterns = [
     path('accounts/',include('accounts.urls',namespace="accounts")),
     path('blogs/',include('blogs.urls',namespace='blogs')),
     path('categories/',include('categories.urls',namespace='categoires')),
+    path(r'auth/', include('social_django.urls', namespace='social')),  # <- Here
+
 
 ]
 urlpatterns += staticfiles_urlpatterns()

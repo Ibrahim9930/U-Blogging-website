@@ -31,6 +31,7 @@ from django.urls import reverse
 
 class Uer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    visited=models.BooleanField(default=False)
     bio = models.TextField(max_length=450, blank=True)
     profile_pic=models.ImageField(upload_to="profile_pictures/")
 

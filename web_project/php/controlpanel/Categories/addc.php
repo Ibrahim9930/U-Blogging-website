@@ -29,7 +29,7 @@ function slugify($text)
 
 class MyDB extends SQLite3 {
    function __construct() {
-     $this->open('..\..\db.sqlite3');
+     $this->open('..\..\..\db.sqlite3');
    }
 }
 
@@ -50,6 +50,6 @@ $statement->bindValue(':url', $info);
 $statement->bindValue(':time', slugify($name) );
 $statement->execute();
 
-header("Refresh:0; url=home.php");
+header("Refresh:0; url=index.php");
 }
  ?>

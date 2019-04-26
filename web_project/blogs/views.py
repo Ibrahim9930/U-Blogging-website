@@ -105,6 +105,10 @@ class Uerblogs(generic.ListView):
                 username__iexact=self.kwargs.get("username")
             )
             self.trending = self.blog_user.blogs.order_by("points")
+            yayed_blogs = models.Blog.objects.raw("select id,yayed_id from blogs_yay where yayer_id = %s",[self.request.user.id])
+            self.y_blogs=[]
+            for blog in yayed_blogs:
+                self.y_blogs.append(blog.id)
         except User.DoesNotExist:
             raise Http404
         else:
@@ -114,19 +118,32 @@ class Uerblogs(generic.ListView):
         context = super().get_context_data(**kwargs)
         context["blog_user"] = self.blog_user
         context["trending"]  = self.trending
+        context["yayed_blogs"] = self.y_blogs
         return context
 
 # ----function based views----
 
-def yay(request):
-
-    print("in")
-    blog_id = request.GET["blog_id"]
+def yay(request,pk):
+    id=pk
+    print(id)
     yay = models.Yay()
-    blog = models.Blog.objects.get(id=blog_id)
+    blog = models.Blog.objects.get(id=id)
     yay.yayed = blog
     yay.yayer = request.user
     yay.save()
+    data = {
+        "points":blog.points
+    }
+    return JsonResponse(data)
+
+def nay(request,pk):
+    id=pk
+    print(id)
+    nay = models.Nay()
+    blog = models.Blog.objects.get(id=id)
+    nay.nayed = blog
+    nay.nayer = request.user
+    nay.save()
     data = {
         "points":blog.points
     }

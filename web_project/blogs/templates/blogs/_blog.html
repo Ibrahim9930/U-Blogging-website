@@ -1,4 +1,8 @@
 {% load static %}
+
+{# AJAX #}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <div class="post-card card ">
   <div class="card-body">
   <a href="{% url 'categotries:category_blogs' name=blog.category.name %}">
@@ -13,8 +17,8 @@
     Posted by u/{{blog.author.username}} {{blog.time_written|timesince}}
   </span>
   <span style="float:right;font-size:1.4em;">
-     <i  class="fas fa-grin-hearts"></i>
-        <span id="points-cout">{{blog.points}}</span>
+     <i  class="fas fa-grin-hearts" id="{{blog.id}}_yay"></i>
+        <span id="points-cout" id="nay">{{blog.points}}</span>
      <i class="fas fa-sad-cry"></i>
   </span>
   <h5>{{blog.title}}</h5>
@@ -38,3 +42,22 @@
   </span>
   </div>
 </div>
+
+<script type="text/javascript">
+
+  yayBtn=$("#{{blog.id}}_yay")
+  yayBtn.click(function(){
+    $.ajax({
+        url:'{% url "blogs:yay" %}',
+        method : "GET",
+        data : {
+          'blog_id':{{blog.id}},
+        },
+        datatype : "json",
+        success : function(){
+          yayBtn.css("color","orange");
+        },
+    })
+  })
+
+</script>

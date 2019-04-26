@@ -106,7 +106,7 @@ class Uerblogs(generic.ListView):
             self.blog_user = User.objects.prefetch_related("blogs").get(
                 username__iexact=self.kwargs.get("username")
             )
-            self.trending = self.blog_user.blogs.order_by("points")
+            # self.trending = self.blog_user.blogs.order_by("points")
         except User.DoesNotExist:
             raise Http404
         else:
@@ -115,5 +115,5 @@ class Uerblogs(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["blog_user"] = self.blog_user
-        context["trending"]  = self.trending
+        # context["trending"]  = self.trending
         return context

@@ -1,4 +1,6 @@
 from django.db import models
+# from django.db.models import property
+
 from categories.models import Category
 from django.contrib.auth import get_user_model
 from django.urls import reverse
@@ -41,6 +43,18 @@ class Yay(models.Model):
     yayer=models.ForeignKey(User,on_delete=models.CASCADE,related_name="yays")
     yayed=models.ForeignKey(Blog,on_delete=models.CASCADE,related_name="blog_yays")
 
+    def save(self,*args,**kwargs):
+
+        self.yayed.points = self.yayed.points + 1
+        self.yayed.save()
+        super().save()
+
+    def delete(self,*args,**kwargs):
+
+        self.yayed.points = self.yayed.points - 1
+        self.yayed.save()
+        super().delete()
+
     def __str__(self):
         return "{} yayed {}".format(self.yayer.username,self.yayed.title)
 
@@ -49,8 +63,20 @@ class Nay(models.Model):
     nayer=models.ForeignKey(User,on_delete=models.CASCADE,related_name="nays")
     nayed=models.ForeignKey(Blog,on_delete=models.CASCADE,related_name="blog_nays")
 
+    def save(self,*args,**kwargs):
+
+        self.nayed.points = self.nayed.points - 1;
+        self.nayed.save()
+        super().save()
+
+    def delete(self,*args,**kwargs):
+
+        self.nayed.points = self.nayed.points + 1;
+        self.nayed.save()
+        super().delete()
+
     def __str__(self):
-        return "{} nayed {}".format(self.nayer.username,self.nayed.title)
+            return "{} nayed {}".format(self.nayer.username,self.nayed.title)
 
 class Comment(models.Model):
 

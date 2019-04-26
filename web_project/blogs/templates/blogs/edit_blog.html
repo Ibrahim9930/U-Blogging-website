@@ -1,6 +1,10 @@
 {% extends "blogs/blog_base.html" %}
 {% load static %}
 
+{% block color %}
+  <link rel="stylesheet" href="{% static "css/white.css" %}">
+{% endblock %}
+
 {% block content %}
 
 <div class="container">
@@ -31,12 +35,10 @@
               <label for="img1" class="imageupload_label p-4 mb-3"> <img src="{% static 'css/plus-button-md.png' %}" alt=""> </label>
               <input type="file" accept="image/*" class="imageupload" name='image' id="img1" value="">
           </div>
-
       </div>
-
-        <input type="submit" value="Edit" class="btn btn-primary mb-5 btn-lg d-block">
-      </form>
-    </div>
+    </div>  
+    <input type="submit" value="Edit" class="btn btn-primary mb-5 btn-lg d-block">
+  </form>
 
   </div>
   <div class="col-2">

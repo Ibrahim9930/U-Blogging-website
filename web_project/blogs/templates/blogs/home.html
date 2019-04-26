@@ -1,6 +1,10 @@
 {% extends "blogs/blog_base.html" %}
 {% load static %}
 {# <link rel="stylesheet" href="{% static "css/home.css" %}"> #}
+{% block color %}
+  <link rel="stylesheet" href="{% static "css/grey.css" %}">
+{% endblock %}
+
 {% block content %}
 <body style="background-color:rgb(230,230,230)">
 

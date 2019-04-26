@@ -24,10 +24,10 @@ class Categoryblogs(generic.ListView):
             # for s in subscribed:
             #     self.subscribed=s
             if len(subscribed) == 1:
-                self.is_subscribed=subscribed[0]
+                self.is_subscribed = subscribed[0]
             else:
-                self.is_subscribed=None
-
+                self.is_subscribed = None
+            self.trending = self.blog_category.cat_blogs.order_by("points")
         except Category.DoesNotExist:
             raise Http404
         else:
@@ -36,7 +36,8 @@ class Categoryblogs(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["cat"] = self.blog_category
-        context["is_subscribed"]=self.is_subscribed
+        context["is_subscribed"] = self.is_subscribed
+        context["trending"] = self.trending
         return context
 
 def Subscribe(request,name):

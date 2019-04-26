@@ -2,9 +2,14 @@
 
 {% load static %}
 
+{% block color %}
+  <link rel="stylesheet" href="{% static "css/grey.css" %}">
+{% endblock %}
+
 {% block content %}
 
-    <div class="container">
+<div class="container">
+
       <div class="Profile_Info p-5 mt-3">
           <div class="row">
               <div class="col-2">
@@ -29,8 +34,8 @@
                   </span>
                 {% endif %}
               </div>
-            </div>
-      </div>
+          </div>
+</div>
       <div class="container">
         <div class="row">
 
@@ -40,30 +45,29 @@
         {% endfor %}
       </div>
       <div class="col-md-4 col-sm-0" >
-        <div class="mycard card" style="width: 100%;">
-          <div class="card-body">
-            <h5 class="card-title">First trending titile</h5>
-            <h6 class="card-subtitle mb-2 text-muted">today</h6>
-            <p class="card-text">Some quick example text to build on the card title</p>
-            <a href="#" class="card-link">Card link</a>
-          </div>
-          <div class="mycard card" style="width: 100%;">
+        {% if trending.count > 2 %}
+          {% for blog in trending|slice:":3" %}
+          <div class="mycard card mt-5" style="width: 100%;">
             <div class="card-body">
-              <h5 class="card-title">First trending titile</h5>
-              <h6 class="card-subtitle mb-2 text-muted">today</h6>
-              <p class="card-text">Some quick example text to build on the card title</p>
-              <a href="#" class="card-link">Card link</a>
-            </div>
-            <div class="mycard card" style="width: 100%;">
-              <div class="card-body">
-                <h5 class="card-title">First trending titile</h5>
-                <h6 class="card-subtitle mb-2 text-muted">today</h6>
-                <p class="card-text">Some quick example text to build on the card title</p>
-                <a href="#" class="card-link">Card link</a>
-              </div>
+              <h5 class="card-title">{{blog.title}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{blog.time_written|timesince}}</h6>
+              <p class="card-text">{{blog.content|safe|truncatechars_html:50}}</p>
+              <a href="{% url 'blogs:details' pk=blog.pk %}" class="card-link">See more</a>
             </div>
           </div>
-      </div>
+          {% endfor %}
+        {% else %}
+          {% for blog in trending %}
+          <div class="mycard card mt-5" style="width: 100%;">
+            <div class="card-body">
+              <h5 class="card-title">{{blog.title}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{blog.time_written|timesince}}</h6>
+              <p class="card-text">{{blog.content|safe|truncatechars_html:50}}</p>
+              <a href="{% url 'blogs:details' pk=blog.pk %}" class="card-link">See more</a>
+            </div>
+          </div>
+          {% endfor %}
+        {% endif %}
     </div>
   </div>
 </div>

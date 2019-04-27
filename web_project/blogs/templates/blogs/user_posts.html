@@ -26,14 +26,17 @@
               </div>
 
 
-              <div class="col-6" style="margin-top: auto; margin-bottom: auto;">
+              <div class="col-5" style="margin-top: auto; margin-bottom: auto;">
                 <p style="line-height:8%;font-size:1.2em;">{{blog_user.uer.bio}}</p>
                 <span class="join_time">Joined on : {{blog_user.date_joined|date:"d M Y"}}</span>
+
+              </div>
+              <div class="col-1"  style="margin-top: auto; margin-bottom: auto;">
                 {% if user.is_authenticated and blog_user == user %}
-                  <span class="settings_icon">
-                    <a href="{% url 'accounts:update' pk=blog_user.pk %}"><img src="{% static "css/settings2.png" %}" alt="settings"></a>
+                  <span class=""> <a style="" href="{% url 'accounts:update' pk=blog_user.pk %}"><img src="{% static "css/settings2.png" %}" alt="settings"></a>
                   </span>
                 {% endif %}
+
               </div>
             </div>
       </div>

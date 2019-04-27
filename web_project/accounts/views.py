@@ -53,7 +53,7 @@ def Home(request):
                 psswd=request.POST['password1']
                 user.set_password(psswd)
                 user.save()
-                login(request,user)
+                login(request,user, backend='social_core.backends.google.GoogleOAuth2')
                 return HttpResponseRedirect("http://127.0.0.1/U-Blogging-website/web_project/php/welcome.php?username="+request.POST['username'])
             else:
 

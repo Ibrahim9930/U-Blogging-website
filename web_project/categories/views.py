@@ -37,6 +37,17 @@ class Categoryblogs(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        try:
+            subscribed = Subscriber.objects.raw("SELECT id,category_id from categories_subscriber where member_id = %s",[self.request.user.id])
+            subbed_categories=[]
+            for sub in subscribed:
+                subbed_categories.append(sub.category_id)
+                print(sub.id)
+            self.subbed_cats = Category.objects.filter(id__in=subbed_categories)
+            print(self.subbed_cats)
+            context["subbed_cats"]=self.subbed_cats
+        except:
+            pass
         context["cat"] = self.blog_category
         context["is_subscribed"] = self.is_subscribed
         context["trending"] = self.trending

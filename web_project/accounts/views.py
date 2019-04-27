@@ -10,6 +10,8 @@ from .forms import UserCreateForm
 from django.views import generic
 from django.contrib.auth.models import User
 from . import models
+from blogs.models import Blog
+from categories.models import Subscriber,Category
 from django.contrib.auth import get_user_model
 Usr = get_user_model()
 
@@ -30,7 +32,7 @@ def Home(request):
                     login(request,user)
                     try:
                         return HttpResponseRedirect(request.GET["next"])
-                    except: 
+                    except:
                         return HttpResponseRedirect(reverse_lazy("blogs:homepage"))#to be changed with the home page
                 else:
 
@@ -100,6 +102,18 @@ class UpdateUer(LoginRequiredMixin, generic.UpdateView):
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
+        try:
+            subscribed = Subscriber.objects.raw("SELECT id,category_id from categories_subscriber where member_id = %s",[self.request.user.id])
+            subbed_categories=[]
+            for sub in subscribed:
+                subbed_categories.append(sub.category_id)
+                print(sub.id)
+            self.subbed_cats = Category.objects.filter(id__in=subbed_categories)
+            print(self.subbed_cats)
+            context["subbed_cats"]=self.subbed_cats
+        except:
+            pass
         context["blog_user"] = self.object.user
         return context

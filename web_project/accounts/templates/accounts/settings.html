@@ -101,69 +101,26 @@
           <img class="hoverZoomLink" src="{% static "css/uicon.png" %}" alt="">
           {% endif %}
         </a>
-
-        <!-- the username -->
         <h1>
                 {{blog_user.username}}
               </h1>
 
-        <!-- and role or location -->
-        <!--<h2>
-                {{user.uer.bio}}
-              </h2>-->
-
-      </header>
 
       <!-- bit of a bio; who are you? -->
       <div class="profile-bio">
-
         <p>
           {{blog_user.uer.bio}}
         </p>
-
       </div>
 
-      <!-- some social links to show off -->
-      <ul class="profile-social-links">
-        <li>
-          <a target="_blank" href="https://www.facebook.com/creativedonut">
-            <i class="fa fa-facebook"></i>
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://twitter.com/dropyourbass">
-            <i class="fa fa-twitter"></i>
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://github.com/vipulsaxena">
-            <i class="fa fa-github"></i>
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://www.behance.net/vipulsaxena">
-
-            <i class="fa fa-behance"></i>
-          </a>
-        </li>
-      </ul>
     </aside>
-
 </div>
-
   </div>
-
   <div class="col-lg-2"></div>
-
 </div>
 
-
 </div>
-
-
-
 <script type="text/javascript">
-
   $('.t').click(function(){
   $('.t').toggleClass('active');
   $('.title').toggleClass('active');

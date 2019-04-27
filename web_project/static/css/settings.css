@@ -2,14 +2,13 @@ html,body{
 background: url(bg.jpg);
 background-position: center;
 background-size:cover;
-position: fixed;
 width: 100%;
+position: fixed;
 height: 100vh;
 }
 
 .rr{
-
-height: 100vh;
+  height: 100vh;
 }
 
 .user_not_found{

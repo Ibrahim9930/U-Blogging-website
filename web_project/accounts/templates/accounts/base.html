@@ -49,12 +49,28 @@
         </ul>
       </div>
       <form class="form-inline d-flex justify-content-end ">
+
         <button class="btn btn-sm btn-outline-secondary m-1" type="button">New post</button>
         <button class="btn btn-sm btn-outline-secondary m-1" type="button">Logout</button>
       </form>
+
+
+      <div class="dropdown">
+  <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+  <div id="myDropdown" class="dropdown-content">
+    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+    <a href="#about">About</a>
+    <a href="#base">Base</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+    <a href="#custom">Custom</a>
+    <a href="#support">Support</a>
+    <a href="#tools">Tools</a>
+  </div>
+</div>
     </nav>
     {% block content %}
-      
+
     {% endblock %}
 </body>
 </html>

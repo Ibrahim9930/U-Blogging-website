@@ -26,11 +26,11 @@
                 <p>{{cat.info}}</p>
                 {% if is_subscribed %}
                   <span class="sub-unsub">
-                    <a href="{% url 'categotries:unsubscribe' name=cat.slug %}" class="unsub-btn p-2">Subscribed</a>
+                    <a href="{% url 'categories:unsubscribe' name=cat.slug %}" class="unsub-btn p-2">Subscribed</a>
                   </span>
                   {% else %}
                   <span class="sub-unsub">
-                    <a href="{% url 'categotries:subscribe' name=cat.slug %}" class="sub-btn p-2">Subscribe</a>
+                    <a href="{% url 'categories:subscribe' name=cat.slug %}" class="sub-btn p-2">Subscribe</a>
                   </span>
                 {% endif %}
               </div>

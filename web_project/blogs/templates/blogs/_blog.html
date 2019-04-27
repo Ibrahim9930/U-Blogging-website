@@ -102,7 +102,7 @@
 
 <div class="post-card card ">
   <div class="card-body">
-  <a href="{% url 'categotries:category_blogs' name=blog.category.name %}">
+  <a href="{% url 'categories:category_blogs' name=blog.category.name %}">
     {% if blog.author.uer.profile_pic %}
     <img class="writer"src="{{blog.author.uer.profile_pic.url}}" alt="">
     {% else %}

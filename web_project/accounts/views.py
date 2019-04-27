@@ -1,5 +1,5 @@
 # Create your views here.
-from django.urls import reverse
+from django.urls import reverse,reverse_lazy
 from django.http import HttpResponseRedirect,HttpResponse
 from django.views.generic import TemplateView
 from django.shortcuts import render
@@ -25,7 +25,7 @@ def Home(request):
                 if user.is_active:
 
                     login(request,user)
-                    return HttpResponse('logged in')#to be changed with the home page
+                    return HttpResponseRedirect(reverse_lazy("blogs:homepage"))#to be changed with the home page
                 else:
 
                     injected="This User has been deactivated"
@@ -43,6 +43,7 @@ def Home(request):
                 psswd=request.POST['password1']
                 user.set_password(psswd)
                 user.save()
+                login(request,user)
                 return HttpResponseRedirect("http://127.0.0.1/U-Blogging-website/web_project/php/welcome.php?username="+request.POST['username'])
             else:
 

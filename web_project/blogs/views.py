@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.http import ( HttpResponseRedirect,
                           HttpResponse,
                           JsonResponse,
@@ -57,11 +58,11 @@ class EditBlog(LoginRequiredMixin, generic.UpdateView):
 
         return super().form_valid(form)
 
-class BlogDetails(generic.DetailView):
+class BlogDetails(LoginRequiredMixin, generic.DetailView ):
     model=models.Blog
     template_name="blogs/blog_details.html"
 
-class HomePage(generic.ListView):
+class HomePage(LoginRequiredMixin, generic.ListView):
 
     model=models.Blog
     template_name = "blogs/home.html"
@@ -86,7 +87,7 @@ class HomePage(generic.ListView):
         context["trending"]=self.trending
         return context
 
-class DeleteBlog(generic.DeleteView):
+class DeleteBlog(LoginRequiredMixin, generic.DeleteView):
 
     model=models.Blog
     template_name="blogs/bye_blog.html"
@@ -94,7 +95,7 @@ class DeleteBlog(generic.DeleteView):
     def get_success_url(self):
         return reverse_lazy("blogs:homepage")
 
-class Uerblogs(generic.ListView):
+class Uerblogs(LoginRequiredMixin, generic.ListView):
 
     model=models.Blog
     template_name="blogs/user_posts.html"
@@ -131,6 +132,7 @@ class Uerblogs(generic.ListView):
 
 # ----function based views----
 
+@login_required
 def yay(request):
 
     pk = request.GET["pk"]
@@ -150,6 +152,7 @@ def yay(request):
     print(data)
     return HttpResponse(data)
 
+@login_required
 def unyay(request):
 
     pk = request.GET["pk"]
@@ -160,6 +163,7 @@ def unyay(request):
     data = blog.points
     return HttpResponse(data)
 
+@login_required
 def nay(request):
 
     pk = request.GET["pk"]
@@ -179,6 +183,7 @@ def nay(request):
     print(data)
     return HttpResponse(data)
 
+@login_required
 def unnay(request):
 
     pk = request.GET["pk"]

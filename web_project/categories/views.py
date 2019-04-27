@@ -3,12 +3,14 @@ from .models import Category,Subscriber
 from blogs import models as m
 from django.http import Http404
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 
 # Create your views here.
-class Categoryblogs(generic.ListView):
+class Categoryblogs(LoginRequiredMixin, generic.ListView):
 
     model=m.Blog
     template_name="categories/category_blogs.html"
@@ -40,6 +42,7 @@ class Categoryblogs(generic.ListView):
         context["trending"] = self.trending
         return context
 
+@login_required
 def Subscribe(request,name):
 
     subbed=Subscriber()
@@ -50,6 +53,7 @@ def Subscribe(request,name):
 
     return HttpResponseRedirect(reverse_lazy("categories:category_blogs",kwargs={"name":cat_name}))
 
+@login_required
 def Unsubscribe(request,name):
 
     cat_name=slugify(name)

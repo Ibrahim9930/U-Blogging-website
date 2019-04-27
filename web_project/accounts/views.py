@@ -4,12 +4,15 @@ from django.http import HttpResponseRedirect,HttpResponse
 from django.views.generic import TemplateView
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from .forms import UserCreateForm
 from django.views import generic
 from django.contrib.auth.models import User
 from . import models
 from django.contrib.auth import get_user_model
 Usr = get_user_model()
+
 def Home(request):
     login_fail=False
     su_fail=False
@@ -25,7 +28,10 @@ def Home(request):
                 if user.is_active:
 
                     login(request,user)
-                    return HttpResponseRedirect(reverse_lazy("blogs:homepage"))#to be changed with the home page
+                    try:
+                        return HttpResponseRedirect(request.GET["next"])
+                    except: 
+                        return HttpResponseRedirect(reverse_lazy("blogs:homepage"))#to be changed with the home page
                 else:
 
                     injected="This User has been deactivated"
@@ -56,7 +62,14 @@ def Home(request):
                                                 ,'form':user_form
                                                 ,'su_fail':su_fail
                                                 ,'login_fail':login_fail})
-class UpdateUer(generic.UpdateView):
+
+@login_required
+def user_logout(request):
+
+    logout(request)
+    return HttpResponseRedirect(reverse_lazy("Home"))
+
+class UpdateUer(LoginRequiredMixin, generic.UpdateView):
     model=models.Uer
     template_name="accounts/settings.html"
     fields=('bio',)

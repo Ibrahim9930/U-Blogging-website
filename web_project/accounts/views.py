@@ -19,6 +19,8 @@ def Home(request):
     login_fail=False
     su_fail=False
     injected=""
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("blogs:homepage"))
     if request.method=='POST':
         if 'login' in request.POST:
 

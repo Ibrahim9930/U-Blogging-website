@@ -4,12 +4,17 @@ from django.http import HttpResponseRedirect,HttpResponse
 from django.views.generic import TemplateView
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from .forms import UserCreateForm
 from django.views import generic
 from django.contrib.auth.models import User
 from . import models
+from blogs.models import Blog
+from categories.models import Subscriber,Category
 from django.contrib.auth import get_user_model
 Usr = get_user_model()
+
 def Home(request):
     login_fail=False
     su_fail=False
@@ -25,7 +30,10 @@ def Home(request):
                 if user.is_active:
 
                     login(request,user)
-                    return HttpResponseRedirect(reverse_lazy("blogs:homepage"))#to be changed with the home page
+                    try:
+                        return HttpResponseRedirect(request.GET["next"])
+                    except:
+                        return HttpResponseRedirect(reverse_lazy("blogs:homepage"))#to be changed with the home page
                 else:
 
                     injected="This User has been deactivated"
@@ -56,7 +64,14 @@ def Home(request):
                                                 ,'form':user_form
                                                 ,'su_fail':su_fail
                                                 ,'login_fail':login_fail})
-class UpdateUer(generic.UpdateView):
+
+@login_required
+def user_logout(request):
+
+    logout(request)
+    return HttpResponseRedirect(reverse_lazy("Home"))
+
+class UpdateUer(LoginRequiredMixin, generic.UpdateView):
     model=models.Uer
     template_name="accounts/settings.html"
     fields=('bio',)
@@ -87,6 +102,18 @@ class UpdateUer(generic.UpdateView):
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
+        try:
+            subscribed = Subscriber.objects.raw("SELECT id,category_id from categories_subscriber where member_id = %s",[self.request.user.id])
+            subbed_categories=[]
+            for sub in subscribed:
+                subbed_categories.append(sub.category_id)
+                print(sub.id)
+            self.subbed_cats = Category.objects.filter(id__in=subbed_categories)
+            print(self.subbed_cats)
+            context["subbed_cats"]=self.subbed_cats
+        except:
+            pass
         context["blog_user"] = self.object.user
         return context

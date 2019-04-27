@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.http import ( HttpResponseRedirect,
                           HttpResponse,
                           JsonResponse,
@@ -46,6 +47,20 @@ class CreateBlog(LoginRequiredMixin, SelectRelatedMixin, generic.CreateView):
     form_class=forms.BlogForm
     template_name='blogs/blog_form.html'
 
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            subscribed = Subscriber.objects.raw("SELECT id,category_id from categories_subscriber where member_id = %s",[self.request.user.id])
+            subbed_categories=[]
+            for sub in subscribed:
+                subbed_categories.append(sub.category_id)
+                print(sub.id)
+            self.subbed_cats = Category.objects.filter(id__in=subbed_categories)
+            print(self.subbed_cats)
+            context["subbed_cats"]=self.subbed_cats
+            return context
+        except:
+            return context
     def form_valid(self,form):
 
         self.object = form.save(commit=False)
@@ -78,12 +93,42 @@ class EditBlog(LoginRequiredMixin, generic.UpdateView):
             image.save()
 
         return super().form_valid(form)
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            subscribed = Subscriber.objects.raw("SELECT id,category_id from categories_subscriber where member_id = %s",[self.request.user.id])
+            subbed_categories=[]
+            for sub in subscribed:
+                subbed_categories.append(sub.category_id)
+                print(sub.id)
+            self.subbed_cats = Category.objects.filter(id__in=subbed_categories)
+            print(self.subbed_cats)
+            context["subbed_cats"]=self.subbed_cats
+            return context
+        except:
+            return context
 
-class BlogDetails(generic.DetailView):
+class BlogDetails(LoginRequiredMixin, generic.DetailView ):
+
     model=models.Blog
     template_name="blogs/blog_details.html"
 
-class HomePage(generic.ListView):
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            subscribed = Subscriber.objects.raw("SELECT id,category_id from categories_subscriber where member_id = %s",[self.request.user.id])
+            subbed_categories=[]
+            for sub in subscribed:
+                subbed_categories.append(sub.category_id)
+                print(sub.id)
+            self.subbed_cats = Category.objects.filter(id__in=subbed_categories)
+            print(self.subbed_cats)
+            context["subbed_cats"]=self.subbed_cats
+            return context
+        except:
+            return context
+
+class HomePage(LoginRequiredMixin, generic.ListView):
 
     model=models.Blog
     template_name = "blogs/home.html"
@@ -98,17 +143,42 @@ class HomePage(generic.ListView):
             print(cats)
             self.blogs=models.Blog.objects.filter(category__in=cats).order_by("time_written")
             self.trending=models.Blog.objects.order_by("points")
+
+            yayed_blogs = self.request.user.yays.all()
+            self.y_blogs=[]
+            for yay in yayed_blogs:
+                print(yay.yayed.id)
+                self.y_blogs.append(yay.yayed.id)
+            print("stage 1")
+            nayed_blogs = self.request.user.nays.all()
+            self.n_blogs=[]
+            for nay in nayed_blogs:
+                self.n_blogs.append(nay.nayed.id)
+
         except User.DoesNotExist:
             raise Http404
         return self.blogs.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        try:
+            subscribed = Subscriber.objects.raw("SELECT id,category_id from categories_subscriber where member_id = %s",[self.request.user.id])
+            subbed_categories=[]
+            for sub in subscribed:
+                subbed_categories.append(sub.category_id)
+                print(sub.id)
+            self.subbed_cats = Category.objects.filter(id__in=subbed_categories)
+            print(self.subbed_cats)
+            context["subbed_cats"]=self.subbed_cats
+        except:
+            pass
         context["blogs"] = self.blogs
         context["trending"]=self.trending
+        context["yayed_blogs"] = self.y_blogs
+        context["nayed_blogs"] = self.n_blogs
         return context
 
-class DeleteBlog(generic.DeleteView):
+class DeleteBlog(LoginRequiredMixin, generic.DeleteView):
 
     model=models.Blog
     template_name="blogs/bye_blog.html"
@@ -116,7 +186,22 @@ class DeleteBlog(generic.DeleteView):
     def get_success_url(self):
         return reverse_lazy("blogs:homepage")
 
-class Uerblogs(generic.ListView):
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            subscribed = Subscriber.objects.raw("SELECT id,category_id from categories_subscriber where member_id = %s",[self.request.user.id])
+            subbed_categories=[]
+            for sub in subscribed:
+                subbed_categories.append(sub.category_id)
+                print(sub.id)
+            self.subbed_cats = Category.objects.filter(id__in=subbed_categories)
+            print(self.subbed_cats)
+            context["subbed_cats"]=self.subbed_cats
+            return context
+        except:
+            return context
+
+class Uerblogs(LoginRequiredMixin, generic.ListView):
 
     model=models.Blog
     template_name="blogs/user_posts.html"
@@ -145,6 +230,17 @@ class Uerblogs(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        try:
+            subscribed = Subscriber.objects.raw("SELECT id,category_id from categories_subscriber where member_id = %s",[self.request.user.id])
+            subbed_categories=[]
+            for sub in subscribed:
+                subbed_categories.append(sub.category_id)
+                print(sub.id)
+            self.subbed_cats = Category.objects.filter(id__in=subbed_categories)
+            print(self.subbed_cats)
+            context["subbed_cats"]=self.subbed_cats
+        except:
+            pass
         context["blog_user"] = self.blog_user
         context["trending"]  = self.trending
         context["yayed_blogs"] = self.y_blogs
@@ -153,6 +249,7 @@ class Uerblogs(generic.ListView):
 
 # ----function based views----
 
+@login_required
 def yay(request):
 
     pk = request.GET["pk"]
@@ -172,6 +269,7 @@ def yay(request):
     print(data)
     return HttpResponse(data)
 
+@login_required
 def unyay(request):
 
     pk = request.GET["pk"]
@@ -182,6 +280,7 @@ def unyay(request):
     data = blog.points
     return HttpResponse(data)
 
+@login_required
 def nay(request):
 
     pk = request.GET["pk"]
@@ -201,6 +300,7 @@ def nay(request):
     print(data)
     return HttpResponse(data)
 
+@login_required
 def unnay(request):
 
     pk = request.GET["pk"]

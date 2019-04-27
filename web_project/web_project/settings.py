@@ -133,7 +133,7 @@ USE_TZ = True
 
 
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'Home'
 LOGIN_REDIRECT_URL = 'Home'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='16474837178-bgftd15i3hdtrvli3av1meg2ftr97tqf.apps.googleusercontent.com'  #Paste CLient Key

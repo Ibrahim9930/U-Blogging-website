@@ -45,7 +45,7 @@
 
 <script type="text/javascript">
 
-  yayBtn=
+  yayBtn=$("#{{blog.id}}_yay")
   yayBtn.click(function(){
     $.ajax({
         url:'{% url "blogs:yay" %}',

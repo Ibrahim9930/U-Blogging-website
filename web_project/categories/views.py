@@ -30,6 +30,18 @@ class Categoryblogs(LoginRequiredMixin, generic.ListView):
             else:
                 self.is_subscribed = None
             self.trending = self.blog_category.cat_blogs.order_by("points")
+
+            yayed_blogs = self.request.user.yays.all()
+            self.y_blogs=[]
+            for yay in yayed_blogs:
+                print(yay.yayed.id)
+                self.y_blogs.append(yay.yayed.id)
+            print("stage 1")
+            nayed_blogs = self.request.user.nays.all()
+            self.n_blogs=[]
+            for nay in nayed_blogs:
+                self.n_blogs.append(nay.nayed.id)
+
         except Category.DoesNotExist:
             raise Http404
         else:
@@ -51,6 +63,8 @@ class Categoryblogs(LoginRequiredMixin, generic.ListView):
         context["cat"] = self.blog_category
         context["is_subscribed"] = self.is_subscribed
         context["trending"] = self.trending
+        context["yayed_blogs"] = self.y_blogs
+        context["nayed_blogs"] = self.n_blogs
         return context
 
 @login_required

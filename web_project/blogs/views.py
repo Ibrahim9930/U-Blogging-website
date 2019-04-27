@@ -132,6 +132,7 @@ class HomePage(LoginRequiredMixin, generic.ListView):
             self.n_blogs=[]
             for nay in nayed_blogs:
                 self.n_blogs.append(nay.nayed.id)
+
         except User.DoesNotExist:
             raise Http404
         return self.blogs.all()

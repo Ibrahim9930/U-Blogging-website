@@ -1,7 +1,104 @@
 {% load static %}
 
-{# AJAX #}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+{# JS #}
+<script type="text/javascript">
+
+  function yay(event){
+    id=$(event.target).attr("id").slice("_")[0]
+    console.log("yayed "+id);
+    $.ajax({
+        url:'{% url "blogs:yay" %}',
+        method : "GET",
+        data : {
+          "pk":id,
+        },
+        success : function(data){
+          $(event.target).css("color","orange")
+          $(event.target).unbind("click")
+          $(event.target).click(unyay)
+          $("#"+id+"_nay").css("color","black")
+          $("#"+id+"_nay").unbind("click")
+          $("#"+id+"_nay").click(nay)
+          console.log(event.target)
+          console.log(data)
+          $("#"+id+"_points").text(data)
+        },
+    })
+  }
+
+  function unyay(event){
+
+    id=$(event.target).attr("id").slice("_")[0]
+    console.log("unyayed "+id);
+    $.ajax({
+        url:'{% url "blogs:unyay"%}',
+        method : "GET",
+        data : {
+          "pk":id,
+        },
+        success : function(data){
+          $(event.target).css("color","black")
+          $(event.target).unbind("click")
+          $(event.target).click(yay)
+          console.log(event.target)
+          console.log(data)
+          $("#"+id+"_points").text(data)
+
+        },
+    })
+  }
+
+  function nay(event){
+
+    id=$(event.target).attr("id").slice("_")[0]
+    console.log("nayed "+id);
+    $.ajax({
+        url:'{% url "blogs:nay" %}',
+        method : "GET",
+        data : {
+          "pk":id,
+        },
+        complete : function(data){
+          console.log("in");
+          $(event.target).css("color","blue")
+          $(event.target).unbind("click")
+          $(event.target).click(unnay)
+          $("#"+id+"_yay").css("color","black")
+          $("#"+id+"_yay").unbind("click")
+          $("#"+id+"_yay").click(yay)
+          console.log(event.target)
+          console.log(data)
+          $("#"+id+"_points").text(data.responseText)
+
+        },
+    })
+  }
+
+  function unnay(event){
+
+    id=$(event.target).attr("id").slice("_")[0]
+    console.log("unnayed "+id);
+    $.ajax({
+        url:'{% url "blogs:unnay" %}',
+        method : "GET",
+        data : {
+          "pk":id,
+        },
+        success : function(data){
+          $(event.target).css("color","black")
+          $(event.target).unbind("click")
+          $(event.target).click(nay)
+          console.log(event.target)
+          console.log(data)
+          $("#"+id+"_points").text(data)
+
+
+        },
+    })
+  }
+
+</script>
+
 
 <div class="post-card card ">
   <div class="card-body">
@@ -17,9 +114,47 @@
     Posted by u/{{blog.author.username}} {{blog.time_written|timesince}}
   </span>
   <span style="float:right;font-size:1.4em;">
+<<<<<<< HEAD
+
+    <i  class="fas fa-grin-hearts" id="{{blog.id}}_yay"></i>
+
+    {% if blog.id in yayed_blogs %}
+    <script type="text/javascript">
+      console.log("yayed");
+      $("#{{blog.id}}_yay").css("color",'orange')
+      $("#{{blog.id}}_yay").click(unyay)
+    </script>
+    {% else %}
+    <script type="text/javascript">
+      console.log("not yayed")
+      $("#{{blog.id}}_yay").css("color",'black')
+      $("#{{blog.id}}_yay").click(yay)
+    </script>
+    {% endif %}
+
+    <span id="{{blog.id}}_points">{{blog.points}}</span>
+
+     <i class="fas fa-sad-cry" id="{{blog.id}}_nay"></i>
+
+     {% if blog.id in nayed_blogs %}
+     <script type="text/javascript">
+        console.log("nayed");
+       $("#{{blog.id}}_nay").css("color","blue")
+       $("#{{blog.id}}_nay").click(unnay)
+     </script>
+     {% else %}
+     <script type="text/javascript">
+        console.log("not nayed");
+       $("#{{blog.id}}_nay").css("color","black")
+       $("#{{blog.id}}_nay").click(nay)
+     </script>
+     {% endif %}
+
+=======
      <i  class="fas fa-grin-hearts" id="{{blog.id}}_yay"></i>
         <span id="points-cout" id="nay">{{blog.points}}</span>
      <i class="fas fa-sad-cry"></i>
+>>>>>>> 951c3d5257d431002241cc10dbe79c01248d079a
   </span>
   <h5>{{blog.title}}</h5>
   <br>

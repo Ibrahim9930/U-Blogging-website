@@ -131,59 +131,59 @@ class Uerblogs(generic.ListView):
 
 # ----function based views----
 
-def yay(request,pk):
+def yay(request):
 
-    id = pk
-    print(id)
+    pk = request.GET["pk"]
+    print(pk)
     yay = models.Yay()
-    blog = models.Blog.objects.get(id=id)
+    blog = models.Blog.objects.get(id=pk)
     yay.yayed = blog
     yay.yayer = request.user
     yay.save()
     try:
-        prev_nay = request.user.nays.get(nayed = blog)
-        perv_nay.delete()
+        prev_nay = request.user.nays.get(nayed = blog.id)
+        prev_nay.delete()
     except models.Nay.DoesNotExist:
         pass
-    data = {
-        "points":blog.points
-    }
-    return JsonResponse(data)
-
-def unyay(request,pk):
-
     blog = models.Blog.objects.get(id=pk)
-    models.Yay.objects.get(yayer = request.user, yayed = blog).delete()
-    data = {
-        "points":blog.points
-    }
-    return JsonResponse(data)
+    data = blog.points
+    print(data)
+    return HttpResponse(data)
 
-def nay(request,pk):
+def unyay(request):
 
-    id = pk
-    print(id)
+    pk = request.GET["pk"]
+    print(pk)
+    yay = models.Yay.objects.get(yayer = request.user, yayed = pk)
+    yay.delete()
+    blog = models.Blog.objects.get(id=pk)
+    data = blog.points
+    return HttpResponse(data)
+
+def nay(request):
+
+    pk = request.GET["pk"]
+    print(pk)
     nay = models.Nay()
-    blog = models.Blog.objects.get(id=id)
+    blog = models.Blog.objects.get(id=pk)
     nay.nayed = blog
     nay.nayer = request.user
     nay.save()
     try:
-        prev_yay = request.user.yays.get(yayed = blog)
-        perv_yay.delete()
+        prev_yay = models.Yay.objects.get(yayer = request.user, yayed = pk)
+        prev_yay.delete()
     except models.Yay.DoesNotExist:
         pass
-    data = {
-        "points":blog.points
-    }
-    print(data["points"])
-    return JsonResponse(data)
-
-def unnay(request,pk):
-
     blog = models.Blog.objects.get(id=pk)
-    models.Nay.objects.get(nayer = request.user, nayed = blog).delete()
-    data = {
-        "points":blog.points
-    }
-    return JsonResponse(data)
+    data = blog.points
+    print(data)
+    return HttpResponse(data)
+
+def unnay(request):
+
+    pk = request.GET["pk"]
+    nay = models.Nay.objects.get(nayer = request.user, nayed = pk)
+    nay.delete()
+    blog = models.Blog.objects.get(id=pk)
+    data = blog.points
+    return HttpResponse(data)

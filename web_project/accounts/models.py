@@ -42,7 +42,7 @@ class Uer(models.Model):
         return reverse("blogs:uerblogs",kwargs={'username':self.user.username})
 
 @receiver(post_save, sender=User)
-def create_user_uer(sender, instance, created, **kwargs):
+def create_user_uer(sender, instance, created, **kwargs ):
     if created:
         Uer.objects.create(user=instance)
 

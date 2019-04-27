@@ -55,7 +55,11 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Explore</a>
             </li>
-
+            {% if user.is_staff %}
+            <li class="nav-item">
+              <a class="nav-link" href="http://127.0.0.1/U-Blogging-website/web_project/php/controlpanel/">ControlPanel</a>
+            </li>
+            {% endif %}
             <li class="nav-item dropdown">
               <a  class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 categories

@@ -48,7 +48,7 @@ def Subscribe(request,name):
     subbed.category=Category.objects.get(slug=cat_name)
     subbed.save()
 
-    return HttpResponseRedirect(reverse_lazy("categotries:category_blogs",kwargs={"name":cat_name}))
+    return HttpResponseRedirect(reverse_lazy("categories:category_blogs",kwargs={"name":cat_name}))
 
 def Unsubscribe(request,name):
 
@@ -57,4 +57,4 @@ def Unsubscribe(request,name):
     subbed=Subscriber.objects.get(member=request.user,category=category)
     subbed.delete()
 
-    return HttpResponseRedirect(reverse_lazy("categotries:category_blogs",kwargs={"name":cat_name}))
+    return HttpResponseRedirect(reverse_lazy("categories:category_blogs",kwargs={"name":cat_name}))

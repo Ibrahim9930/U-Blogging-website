@@ -50,6 +50,7 @@ def Home(request):
     else:
         user_form=UserCreateForm()
 
+
     return render(request,'accounts/index.html',{'injected':injected
                                                 ,'form':user_form
                                                 ,'su_fail':su_fail

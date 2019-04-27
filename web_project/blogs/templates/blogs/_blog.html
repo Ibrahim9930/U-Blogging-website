@@ -169,7 +169,7 @@
     {% for image in blog.blog_images.all|slice:':3' %}
     <img class="post-images"src="{{image.img.url}}" alt="no image">
     {% endfor %}
-    <img class="post-images" src="" alt="">
+    <img class="post-images" src="{% static "css/plus_3.jpg" %}" alt="">
     {% endif %}
 
 

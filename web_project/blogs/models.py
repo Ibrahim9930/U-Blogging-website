@@ -27,7 +27,7 @@ class Blog(models.Model):
         return "{} by {}".format(self.title,self.author)
 
     def get_absolute_url(self):
-        return reverse('Home')
+        return reverse('blogs:details',args=[self.id])
 
 class Image(models.Model):
 

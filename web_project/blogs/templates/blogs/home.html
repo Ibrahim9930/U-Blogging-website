@@ -6,29 +6,35 @@
 {% endblock %}
 
 {% block content %}
+
 <body style="background-color:rgb(230,230,230)">
 
-<div class="container">
+<div class="container" s">
   <div class="row">
     {% for blog in trending|slice:':4'  %}
     <div class="col-md-3">
-    <div class="mycard card" style="width: 100%;">
+    <div class="mycard card" style="width: 100%; height:22vh; ">
       <div class="card-body">
-        <h5 class="card-title">{{blog.title}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{blog.time_written|timesince}}</h6>
-        <p class="card-text">{{blog.content|safe|truncatechars_html:50}}</p>
-        <a href="{% url 'blogs:details' pk=blog.pk %}" class="card-link">See more</a>
+        <h5 class="card-title" style="font-size:1em;">{{blog.title}}</h5>
+        <h6 class="card-subtitle mb-2" style="font-size:0.7em;opacity:0.7;" >{{blog.time_written|timesince}}</h6>
+        <p style="font-size:0.7em;" class="card-text">{{blog.content|striptags|safe|truncatechars_html:80}}</p>
+
       </div>
+      <a style="  margin-left:20px;margin-bottom:20px; color:white; "href="{% url 'blogs:details' pk=blog.pk %}" class="card-link">See more</a>
+
     </div>
     </div>
     {% endfor %}
  </div>
 </div>
 
+
+
+
 <div class="container">
  <div class="row">
 
-  <div class="col-md-8 col-sm-12 posts ">
+  <div class="col-md-8 col-sm-12 "style="margin-top:3vh;">
 
     {% for blog in blog_list %}
       {% include "blogs/_blog.html" %}
@@ -37,7 +43,7 @@
   </div>
 
 <div class="col-md-4 col-sm-0" >
-  <div class="userspace" id="userspace" >
+  <div class="" style="margin-top:3vh;" id="userspace" >
 
     <div class="card" style="height: 60vh; width:18rem">
       <div class="card-body">
@@ -75,10 +81,8 @@ window.onscroll = function() {myFunction()};
 var header = document.getElementById("userspace");
 var sticky = header.offsetTop;
 
-
 function myFunction() {
-
-  if (window.pageYOffset > 280) {
+  if (window.pageYOffset > 400) {
     header.classList.add("sticky");
   } else {
     header.classList.remove("sticky");

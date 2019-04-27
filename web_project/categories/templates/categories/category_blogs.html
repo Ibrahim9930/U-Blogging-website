@@ -10,46 +10,60 @@
 
 <div class="container">
 
-      <div class="Profile_Info p-5 mt-3">
+      <div class="Profile_Info p-5" style="margin-top:10vh;">
           <div class="row">
-              <div class="col-2">
+
+              <div style=" margin-top:auto; margin-bottom:auto;" class="col-2">
                 {% if cat.profile_pic %}
-                <img src="{% static "media/{{cat.profile_pic}}" %}" alt="">
+                <img style="width:50px; height:50px;"src="{% static "media/{{cat.profile_pic}}" %}" alt="">
                 {% else %}
-                <img src="{% static "css/uicon.png" %}" alt="">
+                <img style="" src="{% static "css/uicon.png" %}" alt="">
                 {% endif %}
+
               </div>
-              <div class="col-4">
-                <p>{{cat.name}}</p>
+
+              <div style="margin-top:auto; margin-bottom:auto;"class="col-2">
+                <p >{{cat.name}}</p>
               </div>
-              <div class="col-6">
+
+
+
+              <div style="margin-top:auto; margin-bottom:auto;" class="col-6">
                 <p>{{cat.info}}</p>
+                </div>
+
+
+
+
+                <div style="margin-top:auto; margin-bottom:auto;" class="col-2">
                 {% if is_subscribed %}
-                  <span class="sub-unsub">
+                  <div class="sub-unsub">
                     <a href="{% url 'categories:unsubscribe' name=cat.slug %}" class="unsub-btn p-2">Subscribed</a>
-                  </span>
+                  </div>
                   {% else %}
-                  <span class="sub-unsub">
+                  <div class="sub-unsub">
                     <a href="{% url 'categories:subscribe' name=cat.slug %}" class="sub-btn p-2">Subscribe</a>
-                  </span>
+                  </div>
                 {% endif %}
               </div>
+
+
           </div>
 </div>
       <div class="container">
         <div class="row">
 
-      <div class="col-md-8 col-sm-12 posts ">
+      <div class="col-md-8 col-sm-12 " style="margin-top:3vh;">
         {% for blog in blog_list %}
           {% include "blogs/_blog.html" %}
         {% endfor %}
       </div>
-      <div class="col-md-4 col-sm-0" >
+      <div  style="margin-top:2vh;" class="col-md-4 col-sm-0" >
         {% if trending.count > 2 %}
           {% for blog in trending|slice:":3" %}
-          <div class="mycard card mt-5" style="width: 100%;">
+          <div class="card">
             <div class="card-body">
-              <h5 class="card-title">{{blog.title}}</h5>
+              <h5 style="font-size:1em;" class="card-title">{{blog.title}}</h5>
               <h6 class="card-subtitle mb-2 text-muted">{{blog.time_written|timesince}}</h6>
               <p class="card-text">{{blog.content|safe|truncatechars_html:50}}</p>
               <a href="{% url 'blogs:details' pk=blog.pk %}" class="card-link">See more</a>
@@ -58,19 +72,22 @@
           {% endfor %}
         {% else %}
           {% for blog in trending %}
-          <div class="mycard card mt-5" style="width: 100%;">
+          <div class="mycard card " style="width: 100%; height:25vh;">
             <div class="card-body">
-              <h5 class="card-title">{{blog.title}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{blog.time_written|timesince}}</h6>
-              <p class="card-text">{{blog.content|safe|truncatechars_html:50}}</p>
-              <a href="{% url 'blogs:details' pk=blog.pk %}" class="card-link">See more</a>
+              <h5 style="font-size:1em;" lass="card-title">{{blog.title}}</h5>
+              <h6 class="card-subtitle mb-2   " style="font-size:0.7em;opacity:0.9; color:white;" >{{blog.time_written|timesince}}</h6>
+              <p class="card-text" style="font-size:0.7em;" >{{blog.content|striptags|safe|truncatechars_html:80}}</p>
             </div>
+            <a style="  margin-left:20px;margin-bottom:20px; color:white; " href="{% url 'blogs:details' pk=blog.pk %}" class="card-link">See more</a>
+
           </div>
           {% endfor %}
         {% endif %}
     </div>
   </div>
 </div>
+
+
 <script type="text/javascript">
     sub_btn=$(".sub-btn")
     unsub_btn=$(".unsub-btn")

@@ -6,24 +6,28 @@
 {% endblock %}
 {% block content %}
 <body style="background-color: rgb(230,230,230,1);">
+  <link href="https://fonts.googleapis.com/css?family=Nunito|Open+Sans" rel="stylesheet">
 
 
     <div class="container">
-      <div class="Profile_Info p-5 mt-5">
-          <div class="row">
+      <div class="Profile_Info p-3" style=" font-family: 'Nunito', sans-serif;height:20vh;">
+          <div class="row"  style="width:100%; height:100%;">
               <div class="col-2">
                 {% if blog_user.uer.profile_pic %}
-                <img src="{{blog_user.uer.profile_pic.url}}" class="profile_pic" alt="">
+                <img style="width:100%; height:100%; border:2px solid grey;" src="{{blog_user.uer.profile_pic.url}}" class="profile_pic" alt="">
                 {% else %}
                 <img src="{% static "css/uicon.png" %}" class="profile_pic" alt="">
                 {% endif %}
               </div>
-              <div class="col-4">
-                <p>{{blog_user.first_name}} {{blog_user.last_name}}</p>
-                <span class="handle mt-n5">@{{blog_user.username}}</span>
+
+              <div class="col-4" style="margin-top: auto; margin-bottom: auto;">
+                <p style="line-height:8%;font-size:1.2em;">{{blog_user.first_name}} {{blog_user.last_name}}</p>
+                <span  style="Color:grey; margin-top:-2px;"class="">@{{blog_user.username}}</span>
               </div>
-              <div class="col-6">
-                <p>{{blog_user.uer.bio}}</p>
+
+
+              <div class="col-6" style="margin-top: auto; margin-bottom: auto;">
+                <p style="line-height:8%;font-size:1.2em;">{{blog_user.uer.bio}}</p>
                 <span class="join_time">Joined on : {{blog_user.date_joined|date:"d M Y"}}</span>
                 {% if user.is_authenticated and blog_user == user %}
                   <span class="settings_icon">
@@ -35,31 +39,31 @@
       </div>
       <div class="container">
         <div class="row">
-
       <div class="col-md-8 col-sm-12 posts ">
         {% for blog in blog_list %}
           {% include "blogs/_blog.html" %}
         {% endfor %}
       </div>
-      <div class="col-md-4 col-sm-0" >
+
+      <div  class="col-md-4 col-sm-0" style="font-family: 'Nunito', sans-serif; margin-top:20px;" >
         {% if trending.count > 2 %}
           {% for blog in trending|slice:":3" %}
           <div class="mycard card mt-5" style="width: 100%;">
             <div class="card-body">
               <h5 class="card-title">{{blog.title}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{blog.time_written|timesince}}</h6>
-              <p class="card-text">{{blog.content|safe|truncatechars_html:50}}</p>
+              <h6 class="">{{blog.time_written|timesince}}</h6>
+              <p  style="font-size:0.7em;" class="card-text">{{blog.content|safe|truncatechars_html:50}}</p>
               <a href="{% url 'blogs:details' pk=blog.pk %}" class="card-link">See more</a>
             </div>
           </div>
           {% endfor %}
         {% else %}
           {% for blog in trending %}
-          <div class="mycard card mt-5" style="width: 100%;">
+          <div class="mycard card mt-5" style="width: 100%;"  style="font-family: 'Nunito', sans-serif; margin-top:20px;">
             <div class="card-body">
               <h5 class="card-title">{{blog.title}}</h5>
               <h6 class="card-subtitle mb-2 text-muted">{{blog.time_written|timesince}}</h6>
-              <p class="card-text">{{blog.content|safe|truncatechars_html:50}}</p>
+              <p  class="card-text">{{blog.content|safe|truncatechars_html:50}}</p>
               <a href="{% url 'blogs:details' pk=blog.pk %}" class="card-link">See more</a>
             </div>
           </div>

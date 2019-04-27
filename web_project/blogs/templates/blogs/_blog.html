@@ -99,20 +99,25 @@
 
 </script>
 
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
-<div class="post-card card ">
+<div style="border-left:2px solid grey; margin-top:0px; margin-bottom:20px;" class="post-card card ">
   <div class="card-body">
+    <span style="font-family: 'Open Sans', sans-serif; font-weight:bold; font-size:1.3em;"> {{blog.title}}</span>
+<br>
   <a href="{% url 'categories:category_blogs' name=blog.category.name %}">
     {% if blog.author.uer.profile_pic %}
-    <img class="writer"src="{{blog.author.uer.profile_pic.url}}" alt="">
+    <img style="width:30px; height:30px;   border-Radius:100%;"class="writer"src="{{blog.author.uer.profile_pic.url}}" alt="">
     {% else %}
     <img class="writer" src="{% static "css/uicon.png" %}" alt="">
     {% endif %}
     {{blog.category.name}}
   </a>
-  <span class="postedby">
+
+  <span style="font-family: 'Open Sans', sans-serif; font-weight:lighter; font-size:0.8em;">
     Posted by u/{{blog.author.username}} {{blog.time_written|timesince}}
   </span>
+
   <span style="float:right;font-size:1.4em;">
 
     <i  class="fas fa-grin-hearts" id="{{blog.id}}_yay"></i>
@@ -151,7 +156,6 @@
 
   </span>
 
-  <h5>{{blog.title}}</h5>
   <br>
   <p>{{blog.content|safe|truncatechars_html:450}}</p>
   <a href="{% url 'blogs:details' pk=blog.pk %}" class="btn  btn-outline-secondary">see more</a>

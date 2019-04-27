@@ -4,83 +4,101 @@
 <script type="text/javascript">
 
   function yay(event){
-    id={{blog.id}}
+    id=$(event.target).attr("id").slice("_")[0]
     console.log("yayed "+id);
     $.ajax({
-        url:'{% url "blogs:yay" pk=blog.id%}',
-        datatype : "json",
+        url:'{% url "blogs:yay" %}',
+        method : "GET",
+        data : {
+          "pk":id,
+        },
         success : function(data){
           $(event.target).css("color","orange")
           $(event.target).unbind("click")
           $(event.target).click(unyay)
+          $("#"+id+"_nay").css("color","black")
+          $("#"+id+"_nay").unbind("click")
+          $("#"+id+"_nay").click(nay)
           console.log(event.target)
-          $("#{{blog.id}}_points").text(data.points)
+          console.log(data)
+          $("#"+id+"_points").text(data)
         },
     })
   }
 
   function unyay(event){
 
-    id={{blog.id}}
+    id=$(event.target).attr("id").slice("_")[0]
     console.log("unyayed "+id);
     $.ajax({
-        url:'{% url "blogs:unyay" pk=blog.id%}',
-        datatype : "json",
+        url:'{% url "blogs:unyay"%}',
+        method : "GET",
+        data : {
+          "pk":id,
+        },
         success : function(data){
           $(event.target).css("color","black")
           $(event.target).unbind("click")
           $(event.target).click(yay)
           console.log(event.target)
-          $("#{{blog.id}}_points").text(data.points)
+          console.log(data)
+          $("#"+id+"_points").text(data)
 
         },
     })
   }
 
   function nay(event){
-    id={{blog.id}}
+
+    id=$(event.target).attr("id").slice("_")[0]
     console.log("nayed "+id);
     $.ajax({
-        url:'{% url "blogs:nay" pk=blog.id %}',
-        datatype : "json",
+        url:'{% url "blogs:nay" %}',
+        method : "GET",
+        data : {
+          "pk":id,
+        },
         complete : function(data){
           console.log("in");
           $(event.target).css("color","blue")
           $(event.target).unbind("click")
           $(event.target).click(unnay)
+          $("#"+id+"_yay").css("color","black")
+          $("#"+id+"_yay").unbind("click")
+          $("#"+id+"_yay").click(yay)
           console.log(event.target)
-          console.log(data.points)
-          $("#{{blog.id}}_points").text(data.points)
-          $("#{{blog.id}}_points").text(data.points)
+          console.log(data)
+          $("#"+id+"_points").text(data.responseText)
 
         },
     })
   }
 
   function unnay(event){
-    id={{blog.id}}
+
+    id=$(event.target).attr("id").slice("_")[0]
     console.log("unnayed "+id);
     $.ajax({
-        url:'{% url "blogs:unnay" pk=blog.id %}',
-        datatype : "json",
+        url:'{% url "blogs:unnay" %}',
+        method : "GET",
+        data : {
+          "pk":id,
+        },
         success : function(data){
           $(event.target).css("color","black")
           $(event.target).unbind("click")
           $(event.target).click(nay)
           console.log(event.target)
-          $("#{{blog.id}}_points").text(data.points)
+          console.log(data)
+          $("#"+id+"_points").text(data)
 
 
         },
     })
   }
 
-
 </script>
 
-
-{# AJAX #}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <div class="post-card card ">
   <div class="card-body">
@@ -101,12 +119,13 @@
 
     {% if blog.id in yayed_blogs %}
     <script type="text/javascript">
-      console.log("in first block");
+      console.log("yayed");
       $("#{{blog.id}}_yay").css("color",'orange')
       $("#{{blog.id}}_yay").click(unyay)
     </script>
     {% else %}
     <script type="text/javascript">
+      console.log("not yayed")
       $("#{{blog.id}}_yay").css("color",'black')
       $("#{{blog.id}}_yay").click(yay)
     </script>
@@ -118,11 +137,13 @@
 
      {% if blog.id in nayed_blogs %}
      <script type="text/javascript">
+        console.log("nayed");
        $("#{{blog.id}}_nay").css("color","blue")
        $("#{{blog.id}}_nay").click(unnay)
      </script>
      {% else %}
      <script type="text/javascript">
+        console.log("not nayed");
        $("#{{blog.id}}_nay").css("color","black")
        $("#{{blog.id}}_nay").click(nay)
      </script>

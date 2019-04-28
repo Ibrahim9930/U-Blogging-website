@@ -1,0 +1,25 @@
+{% extends "categories/category_base.html" %}
+
+{% block content %}
+  <div class="container" >
+    <div class="row" style=" margin-top: 8em;">
+        {% for cat in category_list %}
+        <div class="col-4 my-2" id="{{cat.id}}">
+          <div class="card ">
+            <img src="{{cat.pic.url}}" style="height: 15rem;" class="card-img-top" alt="">
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}
+{#
+  <div class="card bg-dark text-white" style=" margin-bottom: 10px; width: 100%;">
+    <img class="card-img" src="{{cat.pic.url}}" alt="Card image">
+    <div class=class="card-img-overlay" >
+      <h5 style="font-size:1em;" class="card-title">{{cat.name}}</h5>
+      <button  id="{{user.username}}'"name="{{cat.id}}" onclick="add(this)" type="button" class="btn btn-light">Subscribe</button>
+    </div>
+  </div>
+</div> #}

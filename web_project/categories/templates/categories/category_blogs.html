@@ -14,8 +14,8 @@
           <div class="row">
 
               <div style=" margin-top:auto; margin-bottom:auto;" class="col-2">
-                {% if cat.profile_pic %}
-                <img style="width:50px; height:50px;"src="{% static "media/{{cat.profile_pic}}" %}" alt="">
+                {% if cat.pic %}
+                <img style="width:50px; height:50px;"src="{{cat.pic.url}}" alt="">
                 {% else %}
                 <img style="" src="{% static "css/uicon.png" %}" alt="">
                 {% endif %}

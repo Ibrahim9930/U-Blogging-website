@@ -53,7 +53,10 @@
               <a class="nav-link" href="{% url 'blogs:homepage' %}">Home <span class="sr-only">{% block homepage_location %}{% endblock %}</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Explore</a>
+              <a class="nav-link" href="{% url 'blogs:explore' %}">Explore</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'categories:list' %}">Categories</a>
             </li>
 
             <li class="nav-item dropdown">
@@ -62,7 +65,7 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 {% for cat in subbed_cats %}
-                  <a class="dropdown-item" href="{% url 'categories:category_blogs' name=cat.slug %}">{{cat.name}}</a>
+                  <a class="dropdown-item" href="{% url 'categories:category_blogs' slug=cat.slug %}">{{cat.name}}</a>
                 {% endfor %}
               </div>
             </li>
@@ -87,7 +90,10 @@
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Explore</a>
+              <a class="nav-link" href="{% url 'blogs:explore' %}">Explore</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'categories:list' %}">Categories</a>
             </li>
 
             <li class="nav-item dropdown">

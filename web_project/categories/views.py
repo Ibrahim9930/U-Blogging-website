@@ -40,9 +40,9 @@ class Categoryblogs(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         try:
             self.blog_category = Category.objects.prefetch_related("cat_blogs").get(
-                name__iexact=self.kwargs.get("name")
+                name__iexact=self.kwargs.get("slug")
             )
-            name=slugify(self.kwargs.get("name"))
+            name=slugify(self.kwargs.get("slug"))
             category = Category.objects.get(slug=name)
             subscribed = Subscriber.objects.raw("SELECT id From categories_subscriber where member_id=%s and category_id=%s",[self.request.user.id,category.id])
             # for s in subscribed:
@@ -98,7 +98,7 @@ def Subscribe(request,name):
     subbed.category=Category.objects.get(slug=cat_name)
     subbed.save()
 
-    return HttpResponseRedirect(reverse_lazy("categories:category_blogs",kwargs={"name":cat_name}))
+    return HttpResponseRedirect(reverse_lazy("categories:category_blogs",kwargs={"slug":cat_name}))
 
 @login_required
 def Unsubscribe(request,name):
@@ -108,4 +108,4 @@ def Unsubscribe(request,name):
     subbed=Subscriber.objects.get(member=request.user,category=category)
     subbed.delete()
 
-    return HttpResponseRedirect(reverse_lazy("categories:category_blogs",kwargs={"name":cat_name}))
+    return HttpResponseRedirect(reverse_lazy("categories:category_blogs",kwargs={"slug":cat_name}))

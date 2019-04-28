@@ -21,6 +21,9 @@ from . import settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+handler404 = 'my_app.views.handler404'
+handler500 = 'my_app.views.handler500'
+
 urlpatterns = [
     path('',views.Home,name="Home"),
     path('admin/', admin.site.urls),

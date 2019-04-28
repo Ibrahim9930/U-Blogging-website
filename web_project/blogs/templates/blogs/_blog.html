@@ -115,7 +115,9 @@
   </a>
 
   <span style="font-family: 'Open Sans', sans-serif; font-weight:lighter; font-size:0.8em;">
-    Posted by u/{{blog.author.username}} {{blog.time_written|timesince}}
+    Posted by <a href="{% url 'blogs:uerblogs' username=blog.author.username %}"
+                 class="username-anchor"
+    >u/{{blog.author.username}}</a> {{blog.time_written|timesince}}
   </span>
 
   <span style="float:right;font-size:1.4em;">

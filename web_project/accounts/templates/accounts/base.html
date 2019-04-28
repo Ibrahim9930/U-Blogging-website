@@ -28,9 +28,13 @@
               <a class="nav-link" href="{% url 'blogs:homepage' %}">Home <span class="sr-only">{% block homepage_location %}{% endblock %}</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Explore</a>
+              <a class="nav-link" href="{% url 'blogs:explore' %}">Explore</a>
             </li>
-
+            {% if user.is_staff %}
+            <li class="nav-item">
+              <a class="nav-link" href="http://127.0.0.1/U-Blogging-website/web_project/php/controlpanel/">ControlPanel</a>
+            </li>
+            {% endif %}
             <li class="nav-item dropdown">
               <a  class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 categories
@@ -44,9 +48,11 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'blogs:uerblogs' username=user.username %}">My Account</a>
             </li>
+
           </ul>
         </div>
         <form class="form-inline d-flex justify-content-end">
+
           <a class="btn btn-sm btn-outline-secondary" href="{% url 'blogs:create' %}">New post</a>
           <a class="btn btn-sm btn-outline-secondary" href="{% url 'accounts:logout' %}">Logout</a>
         </form>

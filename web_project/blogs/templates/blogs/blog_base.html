@@ -73,9 +73,11 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'blogs:uerblogs' username=user.username %}">My Account</a>
             </li>
+
           </ul>
         </div>
         <form class="form-inline d-flex justify-content-end">
+
           <a class="btn btn-sm btn-outline-secondary" href="{% url 'blogs:create' %}">New post</a>
           <a class="btn btn-sm btn-outline-secondary" href="{% url 'accounts:logout' %}">Logout</a>
         </form>
@@ -122,6 +124,5 @@
 {% block content %}
 
 {% endblock %}
-
   </body>
 </html>

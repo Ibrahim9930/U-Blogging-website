@@ -59,7 +59,7 @@
         data : {
           "pk":id,
         },
-        complete : function(data){
+        success : function(data){
           console.log("in");
           $(event.target).css("color","blue")
           $(event.target).unbind("click")
@@ -69,7 +69,7 @@
           $("#"+id+"_yay").click(yay)
           console.log(event.target)
           console.log(data)
-          $("#"+id+"_points").text(data.responseText)
+          $("#"+id+"_points").text(data)
 
         },
     })

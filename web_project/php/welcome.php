@@ -49,22 +49,29 @@ $query = $db->exec( ' UPDATE accounts_uer SET visited=1 WHERE user_id="'.$row1["
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 
   </head>
 
   <style media="screen">
-body{
-  background: black;
-}
+
   </style>
 
   <body>
-<h1  style=" color: white;margin-bottom: 20px; font-size: 3em; text-align:center; padding-top:6%;" >Welcome</h1>
+<h1  style=" font-family: 'Raleway', sans-serif;
+             font-weight:lighter;
+             color: white;
+             margin-bottom: 20px;
+             text-align:center;
+             padding-top:6%;" >    Welcome</h1>
+
+
 <div class="container">
-
-
 <div class="row">
-  <div class="col-12">
+  <div class="col-2">
+
+  </div>
+  <div class="col-8">
 
     <form method="post" action="updateuser.php">
 
@@ -79,11 +86,18 @@ body{
         </div>
 
       </div>
-
-      <h1 style=" color: white; text-align:center; margin:2%;">add your intrests !!</h1>
+      <h4  style=" font-family: 'Raleway', sans-serif;
+                   font-weight:lighter;
+                   color: white;
+                   text-align:center;
+                   padding-top:6%;" >    Add Whatever You Like  !!</h4>
+                   <h6  style=" font-family: 'Raleway', sans-serif;
+                                color: white;
+                                text-align:center;
+                                opacity: 0.5;" >   Dive In Our Universe</h6>
 
       <div class="row" style="
-        max-height: 500px;
+        max-height: 400px;
         margin-top: 50px;
         overflow-y: scroll;
       overflow-x: hidden;
@@ -100,15 +114,15 @@ body{
             $db = new MyDB();
             $query =  "SELECT * FROM categories_category"; // to change whith post id
             $ret = $db->query($query);
-            echo '  <input name="username" type="text" value="'.$username.'" hidden>"';
+            echo '  <input name="username" type="text" value="'.$username.'" hidden>';
             while($row = $ret->fetchArray(SQLITE3_ASSOC) )
              {
                echo '
-               <div class="col-2" id="'. $row['id'].'">
-                 <div class="card text-center" style=" margin-bottom: 10px; width: 11rem; background:rgb(240,248,255);">
-                   <div class="card-body">
-                     <h5 class="card-title">'.$row['name'].'</h5>
-                     <button  id="'.$username.'"name="'. $row['id'].'" onclick="add(this)" type="button" class="btn btn-dark">Add</button>
+               <div class="col-3" id="'. $row['id'].'">
+                 <div class="card text-center" style=" margin-bottom: 10px; width: 100%;; background:rgb(240,248,255);">
+                   <div class="card-body" style="Background:white;">
+                     <h5 style="color:black; font-size:1em;" class="card-title">'.$row['name'].'</h5>
+                     <button  id="'.$username.'"name="'. $row['id'].'" onclick="add(this)" type="button" class="btn btn-light">Subscribe</button>
                    </div>
                  </div>
 
@@ -125,10 +139,6 @@ body{
   </div>
 </div>
 </div>
-
-
-
-
 
 <script type="text/javascript">
   function add(b){
@@ -158,11 +168,12 @@ var dataString = 'user='+user+'&cat='+cat;
 
 
 <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+
 <div id='stars'></div>
 <div id='stars2'></div>
 <div id='stars3'></div>
 <style media="screen">
-html {
+body {
 height: 100%;
 background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
 overflow: hidden;

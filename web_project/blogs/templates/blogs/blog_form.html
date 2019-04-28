@@ -25,34 +25,16 @@
     id="id_content" style=" height: 500px; " cols="30"
     class="editable2 medium-editor-textarea p-3 blogcontent"
      rows="16">
-
   </textarea>
   <div class="images my-5">
-    <div class="row">
+    <div id="pics" class="row">
       <div class="col-3">
-        <label for="img1" class="imageupload_label p-4 mb-3"> <img src="{% static 'css/plus-button-md.png' %}" alt=""> </label>
-        <input type="file" accept="image/*" class="imageupload" name='image' id="img1" value="" required="">
-      </div>
 
-      <div class="col-3">
-        <label for="img2" class="imageupload_label p-4"> <img src="{% static 'css/plus-button-md.png' %}" alt=""> </label>
-        <input type="file" accept="image/*" class="imageupload" name="image2" onchange="addUploadTag()" id="img2" value="">
-      </div>
+        <label id="img2" for="img1" class="imageupload_label p-4 mb-3"> <img src="{% static 'css/plus-button-md.png' %}" alt=""> </label>
+        <input type="file" onchange="readURL(this);" accept="image/*" class="imageupload" name='image' id="img1" value="">
+        <img id="blah" src="#" alt="your image" style="display:none;"/>
 
-      <div class="col-3">
-        <label for="img3" class="imageupload_label p-4"> <img src="{% static 'css/plus-button-md.png' %}" alt=""> </label>
-        <input type="file" accept="image/*" class="imageupload" name="image3" onchange="addUploadTag()" id="img3" value="">
       </div>
-
-      <div class="col-3">
-        <label for="img4" class="imageupload_label p-4"> <img src="{% static 'css/plus-button-md.png' %}" alt=""> </label>
-        <input type="file" accept="image/*" class="imageupload" name="image4" onchange="addUploadTag()" name='image' id="img4" value="">
-      </div>
-      <div class="col-3">
-        <label for="img5" class="imageupload_label p-4"> <img src="{% static 'css/plus-button-md.png' %}" alt=""> </label>
-        <input type="file" accept="image/*" class="imageupload" name="image5" onchange="addUploadTag()" id="img5" value="">
-      </div>
-
     </div>
 
   </div>
@@ -67,7 +49,55 @@
   },
   });</script>
 
-
 </div>
+<script type="text/javascript">
+
+  function makeid(length) {
+     var result           = '';
+     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+     var charactersLength = characters.length;
+     for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+     }
+     return result;
+  }
+
+  function readURL(input) {
+
+       if (input.files && input.files[0]) {
+           var reader = new FileReader();
+
+           reader.onload = function (e) {
+               $('#blah')
+                   .attr('src', e.target.result)
+                   .width(150)
+                   .height(200);
+
+                    $('#blah').css("display","block");
+                    $('#img2').css("display","none");
+
+                    $('#img2').attr("id",makeid(5) )
+                              .attr("name",makeid(5) );
+
+
+                    $('#blah').attr("id",makeid(5) );
+
+                    $('#img1').attr("id",makeid(5) )
+                              .attr("name",makeid(5) );
+
+
+                    $('#pics').append(' <div class="col-3"> <label id="img2" for="img1" class="imageupload_label p-4 mb-3"> <img src="{% static "css/plus-button-md.png" %}" alt=""> </label><input type="file"  onchange="readURL(this);" accept="image/*" class="imageupload" name="image" id="img1" value="" > <img id="blah" src="#" alt="your image" style="display:none;"/> </div>');
+
+
+           };
+           reader.readAsDataURL(input.files[0]);
+
+
+       }
+
+   }
+
+
+</script>
 
 {% endblock %}

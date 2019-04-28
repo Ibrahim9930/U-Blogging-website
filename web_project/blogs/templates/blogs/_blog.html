@@ -4,7 +4,7 @@
 <script type="text/javascript">
 
   function yay(event){
-    id=$(event.target).attr("id").slice("_")[0]
+    id=$(event.target).attr("id").split("_")[0]
     console.log("yayed "+id);
     $.ajax({
         url:'{% url "blogs:yay" %}',
@@ -28,7 +28,7 @@
 
   function unyay(event){
 
-    id=$(event.target).attr("id").slice("_")[0]
+    id=$(event.target).attr("id").split("_")[0]
     console.log("unyayed "+id);
     $.ajax({
         url:'{% url "blogs:unyay"%}',
@@ -50,7 +50,8 @@
 
   function nay(event){
 
-    id=$(event.target).attr("id").slice("_")[0]
+    console.log($(event.target).attr("id"));
+    id=$(event.target).attr("id").split("_")[0]
     console.log("nayed "+id);
     $.ajax({
         url:'{% url "blogs:nay" %}',
@@ -58,7 +59,7 @@
         data : {
           "pk":id,
         },
-        complete : function(data){
+        success : function(data){
           console.log("in");
           $(event.target).css("color","blue")
           $(event.target).unbind("click")
@@ -68,7 +69,7 @@
           $("#"+id+"_yay").click(yay)
           console.log(event.target)
           console.log(data)
-          $("#"+id+"_points").text(data.responseText)
+          $("#"+id+"_points").text(data)
 
         },
     })
@@ -76,7 +77,7 @@
 
   function unnay(event){
 
-    id=$(event.target).attr("id").slice("_")[0]
+    id=$(event.target).attr("id").split("_")[0]
     console.log("unnayed "+id);
     $.ajax({
         url:'{% url "blogs:unnay" %}',

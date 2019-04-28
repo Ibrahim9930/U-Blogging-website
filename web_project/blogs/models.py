@@ -35,9 +35,6 @@ class Image(models.Model):
 #for some reason its refusing to take the title of the post
     img=models.ImageField(upload_to="images/")
 
-
-
-
 class Yay(models.Model):
 
     yayer=models.ForeignKey(User,on_delete=models.CASCADE,related_name="yays")
@@ -57,6 +54,9 @@ class Yay(models.Model):
 
     def __str__(self):
         return "{} yayed {}".format(self.yayer.username,self.yayed.title)
+
+    class Meta:
+        unique_together=("yayer","yayed")
 
 class Nay(models.Model):
 
@@ -78,6 +78,8 @@ class Nay(models.Model):
     def __str__(self):
             return "{} nayed {}".format(self.nayer.username,self.nayed.title)
 
+    class Meta:
+        unique_together=("nayer","nayed")
 class Comment(models.Model):
 
     author=models.ForeignKey(User,on_delete=models.CASCADE)#may cause the comment to be poseted by the active user

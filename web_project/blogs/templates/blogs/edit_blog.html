@@ -46,7 +46,12 @@
   </div>
   <div class="col-2">
     <div class="card mt-5" style="width: 18rem;">
-      <img src="{{blog.category.pic.url}}" class="card-img-top" alt="">
+      {% if  blog.category.pic %}
+        <img src="{{blog.category.pic.url}}" class="card-img-top" alt="">
+      {% else %}
+        <img src="{% static "css/uicon.png" %}" class="card-img-top" alt="">
+      {% endif %}
+
       <div class="card-body">
         <p class="card-text" align="center">{{blog.category.name}}</p>
       </div>

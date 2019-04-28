@@ -13,6 +13,25 @@ from django.http import ( HttpResponseRedirect,
                           )
 
 # Create your views here.
+class CategoryList(LoginRequiredMixin, generic.ListView):
+
+    model = Category
+    template_name = "categories/cat_list.html"
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            subscribed = Subscriber.objects.raw("SELECT id,category_id from categories_subscriber where member_id = %s",[self.request.user.id])
+            subbed_categories=[]
+            for sub in subscribed:
+                subbed_categories.append(sub.category_id)
+                print(sub.id)
+            self.subbed_cats = Category.objects.filter(id__in=subbed_categories)
+            print(self.subbed_cats)
+            context["subbed_cats"]=self.subbed_cats
+            return context
+        except:
+            return context
+
 class Categoryblogs(LoginRequiredMixin, generic.ListView):
 
     model=m.Blog

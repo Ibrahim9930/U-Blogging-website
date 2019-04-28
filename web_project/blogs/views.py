@@ -176,7 +176,7 @@ class Uerblogs(LoginRequiredMixin, generic.ListView):
         except User.DoesNotExist:
             raise Http404
         else:
-            return self.blog_user.blogs.all()
+            return self.blog_user.blogs.all().order_by("-time_written")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -210,7 +210,7 @@ class HomePage(LoginRequiredMixin, generic.ListView):
             for cat in categories:
                 cats.append(cat.category)
             print(cats)
-            self.blogs=models.Blog.objects.filter(category__in=cats).order_by("time_written")
+            self.blogs=models.Blog.objects.filter(category__in=cats).order_by("-time_written")
             self.trending=models.Blog.objects.order_by("points")
 
             yayed_blogs = self.request.user.yays.all()
@@ -226,7 +226,7 @@ class HomePage(LoginRequiredMixin, generic.ListView):
 
         except User.DoesNotExist:
             raise Http404
-        return self.blogs.all()
+        return self.blogs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -261,7 +261,7 @@ class ExploreBlogs(LoginRequiredMixin, generic.ListView):
             for cat in categories:
                 cats.append(cat.category)
 
-            self.blogs = models.Blog.objects.exclude(category__in=cats).order_by("time_written")
+            self.blogs = models.Blog.objects.exclude(category__in=cats).order_by("-time_written")
             self.trending = models.Blog.objects.order_by("points")
 
             yayed_blogs = self.request.user.yays.all()
@@ -277,7 +277,7 @@ class ExploreBlogs(LoginRequiredMixin, generic.ListView):
 
         except User.DoesNotExist:
             raise Http404
-        return self.blogs.all()
+        return self.blogs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

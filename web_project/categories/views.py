@@ -67,7 +67,7 @@ class Categoryblogs(LoginRequiredMixin, generic.ListView):
         except Category.DoesNotExist:
             raise Http404
         else:
-            return self.blog_category.cat_blogs.all()
+            return self.blog_category.cat_blogs.order_by("-time_written")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

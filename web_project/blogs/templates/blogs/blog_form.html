@@ -1,7 +1,7 @@
 {% extends "blogs/blog_base.html" %}
 
 {% load static %}
-
+{% load bootstrap4 %}
 {% block color %}
   <link rel="stylesheet" href="{% static "css/white.css" %}">
 {% endblock %}
@@ -13,9 +13,8 @@
   <form enctype="multipart/form-data" action="/blogs/createblog/" method="post">
     {% csrf_token %}
 
-    <div class="mt-5">
-      <label for="{{form.category.id_for_label}}">Category</label>
-      {{form.category}}
+    <div class="mt-5 col-4">
+      {% bootstrap_field form.category %}
     </div>
 
     <input type="text" name="title" maxlength="255" placeholder="Title" title=""
@@ -45,7 +44,7 @@
   </form>
 
   <script>var editor = new MediumEditor('.editable2',{toolbar: {
-      buttons: ['bold', 'italic', 'quote','image'],
+      buttons: ['bold', 'italic', 'quote','underline','strikethrough','html'],
       diffLeft: 25,
       diffTop: 10,
   },

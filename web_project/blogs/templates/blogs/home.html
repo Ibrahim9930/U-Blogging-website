@@ -63,7 +63,7 @@
         <p class="card-text" style="text-align:center;">{{user.date_joined|date:"d b Y"}}</p>
 
         <a href="{% url 'blogs:uerblogs' username=user.username %}" class="btn btn-primary mr-5">Blogs</a>
-        <a href="{% url 'accounts:update' pk=user.id %}" class="btn btn-dark">Settings</a>
+        <a href="{% url 'accounts:update' pk=user.uer.id %}" class="btn btn-dark">Settings</a>
       </div>
 </div>
 </div>

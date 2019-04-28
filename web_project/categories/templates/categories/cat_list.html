@@ -6,7 +6,7 @@
         {% for cat in category_list %}
         <div class="col-4 my-2" id="{{cat.id}}">
           <div class="card ">
-            <a href="{% url 'categories:category_blogs' name=cat.slug %}">
+            <a href="{% url 'categories:category_blogs' slug=cat.slug %}">
             <img src="{{cat.pic.url}}" style="height: 15rem; opacity:0.7;" class="card-img-top" alt="">
         <h1 style="   color:white;position:absolute;right:45%;top:40%;  ">{{cat.name}}</h1>
         </a>

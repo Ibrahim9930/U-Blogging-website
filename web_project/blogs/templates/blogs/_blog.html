@@ -106,7 +106,7 @@
   <div class="card-body">
     <span style="font-family: 'Open Sans', sans-serif; font-weight:bold; font-size:1.3em;"> {{blog.title}}</span>
 <br>
-  <a href="{% url 'categories:category_blogs' name=blog.category.name %}">
+  <a href="{% url 'categories:category_blogs' slug=blog.category.slug %}">
     {% if blog.author.uer.profile_pic %}
     <img style="width:30px; height:30px;   border-Radius:100%;"class="writer"src="{{blog.author.uer.profile_pic.url}}" alt="">
     {% else %}

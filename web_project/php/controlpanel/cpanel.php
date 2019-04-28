@@ -12,7 +12,7 @@
 
 <nav>
 	<a href="http://127.0.0.1/U-Blogging-website/web_project/php/controlpanel/posts">Posts</a>
-	<a href="#">Users</a>
+	<a href="http://127.0.0.1/U-Blogging-website/web_project/php/controlpanel/users/">Users</a>
 	<a href="http://127.0.0.1/U-Blogging-website/web_project/php/controlpanel/categories/">Categories</a>
   <a href="logout.php">Log out</a>
 

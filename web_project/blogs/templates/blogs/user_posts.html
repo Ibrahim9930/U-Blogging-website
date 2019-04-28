@@ -33,7 +33,7 @@
               </div>
               <div class="col-1"  style="margin-top: auto; margin-bottom: auto;">
                 {% if user.is_authenticated and blog_user == user %}
-                  <span class=""> <a style="" href="{% url 'accounts:update' pk=blog_user.pk %}"><img src="{% static "css/settings2.png" %}" alt="settings"></a>
+                  <span class=""> <a style="" href="{% url 'accounts:update' pk=blog_user.uer.pk %}"><img src="{% static "css/settings2.png" %}" alt="settings"></a>
                   </span>
                 {% endif %}
 

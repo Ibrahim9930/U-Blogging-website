@@ -35,8 +35,10 @@
           <div class="col-3">
               <label id="img2" for="img1" class="imageupload_label p-4 mb-3"> <img src="{% static 'css/plus-button-md.png' %}" alt=""> </label>
               <input type="file" accept="image/*" onchange="readURL(this)"  class="imageupload" name='image' id="img1" value="">
-              <img id="blah" src="#" alt="your image" style="display:none;"/>
+              <img id="blah" src="#" alt="your image" />
           </div>
+
+
       </div>
     </div>
     <input type="submit" value="Edit" class="btn btn-primary mb-5 btn-lg d-block">
@@ -62,9 +64,19 @@
 },
 });</script>
 
-{% endblock %}
 
 <script type="text/javascript">
+
+    function makeid(length) {
+       var result           = '';
+       var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+       var charactersLength = characters.length;
+       for ( var i = 0; i < length; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+       }
+       return result;
+    }
+    
   function readURL(input) {
        if (input.files && input.files[0]) {
            var reader = new FileReader();
@@ -95,3 +107,5 @@
    }
 
 </script>
+
+{% endblock %}

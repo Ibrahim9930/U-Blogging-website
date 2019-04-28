@@ -49,20 +49,23 @@
   </div>
   </form>
 
+
 <div class="row" style >
     <div class="col-12">
       {% for comment in blog.blog_comments.all %}
-        <div class="comment p-3 m-3" style="background:rgb(230, 230, 230);">
-          <span style=" font-weight:bold; color:grey;" class="writer_name ml-5">{{comment.author.username}}
-               {% if user.is_authenticated and comment.author == user %}
-               <form class="" action="http://127.0.0.1/U-Blogging-website/web_project/php/comments/deletecomment.php" method="post">
-                 <input type="text" name="id" value="{{comment.id}}" hidden>
-                <button type="submit" style="float:right;" class="btn btn-link"> <b>Delete</b> </button>
-              </form>
-             {% endif %}
-           </span>
+        <div class="comment p-4 m-3" style="background:rgb(245, 245, 245);">
 
-          <p ="comment_content">{{comment.content}}</p>
+          <span style=" font-weight:bold; color:black; opacity:0.7;" class="writer_name ml-5">{{comment.author.username}}</span>
+
+          <p style="width:80%; font-size:0.9em;">{{comment.content}}</p>
+
+          {% if user.is_authenticated and comment.author == user %}
+          <form class="" action="http://127.0.0.1/U-Blogging-website/web_project/php/comments/deletecomment.php" method="post">
+            <input type="text" name="id" value="{{comment.id}}" hidden>
+           <button type="submit"  class="btn btn-link"> <b>Delete</b> </button>
+         </form>
+        {% endif %}
+
 
         </div>
       {% endfor %}

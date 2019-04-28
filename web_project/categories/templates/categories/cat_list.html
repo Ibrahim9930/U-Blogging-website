@@ -7,10 +7,11 @@
         <div class="col-4 my-2" id="{{cat.id}}">
           <div class="card ">
             <a href="{% url 'categories:category_blogs' slug=cat.slug %}">
-            <img src="{{cat.pic.url}}" style="height: 15rem; opacity:0.7;" class="card-img-top" alt="">
-        <h1 style="   color:white;position:absolute;right:45%;top:40%;  ">{{cat.name}}</h1>
-        </a>
-
+              {% if cat.pic %}
+                <img src="{{cat.pic.url}}" style="height: 15rem; opacity:0.7;" class="card-img-top" alt="">
+              {% endif %}
+              <h1 style="   color:white;position:absolute;right:45%;top:40%;  ">{{cat.name}}</h1>
+            </a>
           </div>
         </div>
         {% endfor %}
@@ -18,12 +19,3 @@
   </div>
 
 {% endblock %}
-{#
-  <div class="card bg-dark text-white" style=" margin-bottom: 10px; width: 100%;">
-    <img class="card-img" src="{{cat.pic.url}}" alt="Card image">
-    <div class=class="card-img-overlay" >
-      <h5 style="font-size:1em;" class="card-title">{{cat.name}}</h5>
-      <button  id="{{user.username}}'"name="{{cat.id}}" onclick="add(this)" type="button" class="btn btn-light">Subscribe</button>
-    </div>
-  </div>
-</div> #}

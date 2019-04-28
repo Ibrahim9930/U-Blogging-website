@@ -59,7 +59,7 @@ def populate_cat_blogs(name="nth",n=15):
             blog = Blog.objects.get_or_create(author = author,content = content, title=title, category = cat)[0]
             blog.save()
             for i in range(random.randint(0,5)):
-                src = "C:\\Users\\masri\\Documents\\GitHub\\U-Blogging-website\\web_project\\media\\images\\"+cat.name+str(i)+"."+"jpg"
+                src = "C:\\xampp\\htdocs\\U-Blogging-website\\web_project\\media\\images\\"+cat.name+str(i)+"."+"jpg"
                 img = Image.objects.get_or_create(post = blog , img = src)[000]
                 img.save()
             for i in range(random.randint(0,10)):
@@ -78,7 +78,7 @@ def populate_cat_blogs(name="nth",n=15):
             blog = Blog.objects.get_or_create(author = author,content = content, title=title, category =cat)[0]
             blog.save()
             for i in range(random.randint(0,5)):
-                src = src = "C:\\Users\\masri\\Documents\\GitHub\\U-Blogging-website\\web_project\\media\\images\\"+cat.name+str(i)+"."+"jpg"
+                src = src = "C:\\xampp\\htdocs\\U-Blogging-website\\web_project\\media\\images\\"+cat.name+str(i)+"."+"jpg"
                 img = Image.objects.get_or_create(post = blog , img = src)[0]
                 img.save()
             for i in range(random.randint(0,10)):
@@ -89,7 +89,7 @@ def populate_cat_blogs(name="nth",n=15):
                 nay.save()
     print("Blog population done")
 if __name__ == '__main__':
-    # populate_users()
-    # populate_cat_blogs("culture",15)
-    # populate_cat_blogs()
+    populate_users()
+    populate_cat_blogs("culture",15)
+    populate_cat_blogs()
     populate_subscriber()

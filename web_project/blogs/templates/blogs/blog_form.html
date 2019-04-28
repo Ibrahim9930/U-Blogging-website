@@ -53,7 +53,6 @@
 
 </div>
 <script type="text/javascript">
-
   function makeid(length) {
      var result           = '';
      var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -63,43 +62,26 @@
      }
      return result;
   }
-
   function readURL(input) {
-
        if (input.files && input.files[0]) {
            var reader = new FileReader();
-
            reader.onload = function (e) {
                $('#blah')
                    .attr('src', e.target.result)
                    .width(150)
                    .height(200);
-
                     $('#blah').css("display","block");
                     $('#img2').css("display","none");
-
                     $('#img2').attr("id",makeid(5) )
                               .attr("name",makeid(5) );
-
-
                     $('#blah').attr("id",makeid(5) );
-
                     $('#img1').attr("id",makeid(5) )
                               .attr("name",makeid(5) );
-
-
                     $('#pics').append(' <div class="col-3"> <label id="img2" for="img1" class="imageupload_label p-4 mb-3"> <img src="{% static "css/plus-button-md.png" %}" alt=""> </label><input type="file"  onchange="readURL(this);" accept="image/*" class="imageupload" name="image" id="img1" value="" > <img id="blah" src="#" alt="your image" style="display:none;"/> </div>');
-
-
            };
            reader.readAsDataURL(input.files[0]);
-
-
        }
-
    }
-
-
 </script>
 
 {% endblock %}

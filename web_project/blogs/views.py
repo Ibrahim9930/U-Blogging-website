@@ -128,56 +128,6 @@ class BlogDetails(LoginRequiredMixin, generic.DetailView ):
         except:
             return context
 
-class HomePage(LoginRequiredMixin, generic.ListView):
-
-    model=models.Blog
-    template_name = "blogs/home.html"
-
-    def get_queryset(self):
-        try:
-            cats=[]
-            i=0
-            categories = Subscriber.objects.raw("select id,category_id FROM categories_subscriber WHERE member_id=%s",[self.request.user.id])
-            for cat in categories:
-                cats.append(cat.category)
-            print(cats)
-            self.blogs=models.Blog.objects.filter(category__in=cats).order_by("time_written")
-            self.trending=models.Blog.objects.order_by("points")
-
-            yayed_blogs = self.request.user.yays.all()
-            self.y_blogs=[]
-            for yay in yayed_blogs:
-                print(yay.yayed.id)
-                self.y_blogs.append(yay.yayed.id)
-            print("stage 1")
-            nayed_blogs = self.request.user.nays.all()
-            self.n_blogs=[]
-            for nay in nayed_blogs:
-                self.n_blogs.append(nay.nayed.id)
-
-        except User.DoesNotExist:
-            raise Http404
-        return self.blogs.all()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        try:
-            subscribed = Subscriber.objects.raw("SELECT id,category_id from categories_subscriber where member_id = %s",[self.request.user.id])
-            subbed_categories=[]
-            for sub in subscribed:
-                subbed_categories.append(sub.category_id)
-                print(sub.id)
-            self.subbed_cats = Category.objects.filter(id__in=subbed_categories)
-            print(self.subbed_cats)
-            context["subbed_cats"]=self.subbed_cats
-        except:
-            pass
-        context["blogs"] = self.blogs
-        context["trending"]=self.trending
-        context["yayed_blogs"] = self.y_blogs
-        context["nayed_blogs"] = self.n_blogs
-        return context
-
 class DeleteBlog(LoginRequiredMixin, generic.DeleteView):
 
     model=models.Blog
@@ -247,6 +197,106 @@ class Uerblogs(LoginRequiredMixin, generic.ListView):
         context["nayed_blogs"] = self.n_blogs
         return context
 
+class HomePage(LoginRequiredMixin, generic.ListView):
+
+    model=models.Blog
+    template_name = "blogs/home.html"
+
+    def get_queryset(self):
+        try:
+            cats=[]
+            i=0
+            categories = Subscriber.objects.raw("select id,category_id FROM categories_subscriber WHERE member_id=%s",[self.request.user.id])
+            for cat in categories:
+                cats.append(cat.category)
+            print(cats)
+            self.blogs=models.Blog.objects.filter(category__in=cats).order_by("time_written")
+            self.trending=models.Blog.objects.order_by("points")
+
+            yayed_blogs = self.request.user.yays.all()
+            self.y_blogs=[]
+            for yay in yayed_blogs:
+                print(yay.yayed.id)
+                self.y_blogs.append(yay.yayed.id)
+            print("stage 1")
+            nayed_blogs = self.request.user.nays.all()
+            self.n_blogs=[]
+            for nay in nayed_blogs:
+                self.n_blogs.append(nay.nayed.id)
+
+        except User.DoesNotExist:
+            raise Http404
+        return self.blogs.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            subscribed = Subscriber.objects.raw("SELECT id,category_id from categories_subscriber where member_id = %s",[self.request.user.id])
+            subbed_categories=[]
+            for sub in subscribed:
+                subbed_categories.append(sub.category_id)
+                print(sub.id)
+            self.subbed_cats = Category.objects.filter(id__in=subbed_categories)
+            print(self.subbed_cats)
+            context["subbed_cats"]=self.subbed_cats
+        except:
+            pass
+        context["blogs"] = self.blogs
+        context["trending"]=self.trending
+        context["yayed_blogs"] = self.y_blogs
+        context["nayed_blogs"] = self.n_blogs
+        return context
+
+class ExploreBlogs(LoginRequiredMixin, generic.ListView):
+
+    model=models.Blog
+    template_name = "blogs/explore.html"
+
+    def get_queryset(self):
+        try:
+            cats=[]
+            i=0
+            categories = Subscriber.objects.raw("select id,category_id FROM categories_subscriber WHERE member_id=%s",[self.request.user.id])
+
+            for cat in categories:
+                cats.append(cat.category)
+
+            self.blogs = models.Blog.objects.exclude(category__in=cats).order_by("time_written")
+            self.trending = models.Blog.objects.order_by("points")
+
+            yayed_blogs = self.request.user.yays.all()
+            self.y_blogs=[]
+            for yay in yayed_blogs:
+                print(yay.yayed.id)
+                self.y_blogs.append(yay.yayed.id)
+
+            nayed_blogs = self.request.user.nays.all()
+            self.n_blogs=[]
+            for nay in nayed_blogs:
+                self.n_blogs.append(nay.nayed.id)
+
+        except User.DoesNotExist:
+            raise Http404
+        return self.blogs.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            subscribed = Subscriber.objects.raw("SELECT id,category_id from categories_subscriber where member_id = %s",[self.request.user.id])
+            subbed_categories=[]
+            for sub in subscribed:
+                subbed_categories.append(sub.category_id)
+                print(sub.id)
+            self.subbed_cats = Category.objects.filter(id__in=subbed_categories)
+            print(self.subbed_cats)
+            context["subbed_cats"]=self.subbed_cats
+        except:
+            pass
+        context["blogs"] = self.blogs
+        context["trending"]=self.trending
+        context["yayed_blogs"] = self.y_blogs
+        context["nayed_blogs"] = self.n_blogs
+        return context
 # ----function based views----
 
 @login_required

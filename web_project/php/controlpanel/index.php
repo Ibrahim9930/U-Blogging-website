@@ -124,6 +124,8 @@ background:  rgb(0,0,0);
               name = "password" placeholder = "password " required>
            <button class = "btn btn-lg btn-primary btn-block" type = "submit"
               name = "login">Login</button>
+              <a style="text-align:center; " href="http://127.0.0.1:8000" >Back to site</a>
+
         </form>
 
 

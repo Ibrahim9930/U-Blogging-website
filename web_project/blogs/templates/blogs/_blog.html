@@ -120,62 +120,78 @@
                  class="username-anchor"
     >u/{{blog.author.username}}</a> {{blog.time_written|timesince}}
   </span>
+<div class="row">
+  <div class="col-1" style="margin-top:auto;margin-bottom:auto;">
+    <span style="float:right;font-size:1.4em;">
 
-  <span style="float:right;font-size:1.4em;">
-
-    <i  class="fas fa-grin-hearts" id="{{blog.id}}_yay"></i>
-
-    {% if blog.id in yayed_blogs %}
-    <script type="text/javascript">
-      console.log("yayed");
-      $("#{{blog.id}}_yay").css("color",'orange')
-      $("#{{blog.id}}_yay").click(unyay)
-    </script>
-    {% else %}
-    <script type="text/javascript">
-      console.log("not yayed")
-      $("#{{blog.id}}_yay").css("color",'black')
-      $("#{{blog.id}}_yay").click(yay)
-    </script>
-    {% endif %}
-
-    <span id="{{blog.id}}_points">{{blog.points}}</span>
-
-     <i class="fas fa-sad-cry" id="{{blog.id}}_nay"></i>
-
-     {% if blog.id in nayed_blogs %}
-     <script type="text/javascript">
-        console.log("nayed");
-       $("#{{blog.id}}_nay").css("color","blue")
-       $("#{{blog.id}}_nay").click(unnay)
-     </script>
-     {% else %}
-     <script type="text/javascript">
-        console.log("not nayed");
-       $("#{{blog.id}}_nay").css("color","black")
-       $("#{{blog.id}}_nay").click(nay)
-     </script>
-     {% endif %}
-
-  </span>
-
-  <br>
-  <p>{{blog.content|safe|truncatechars_html:450}}</p>
-  <a href="{% url 'blogs:details' pk=blog.pk %}" class="btn  btn-outline-secondary">see more</a>
-
-  <span class="images">
-    {% if blog.blog_images.count < 4 %}
-    {% for image in blog.blog_images.all %}
-    <img class="post-images"src="{{image.img.url}}" alt="no image">
-    {% endfor %}
-    {% else %}
-    {% for image in blog.blog_images.all|slice:':3' %}
-    <img class="post-images"src="{{image.img.url}}" alt="no image">
-    {% endfor %}
-    <img class="post-images" src="{% static "css/plus_3.jpg" %}" alt="">
-    {% endif %}
+      <i class="far fa-thumbs-up"  id="{{blog.id}}_yay"></i>
+      <br>
+      <span style="color:grey; font-size:0.7em;" id="{{blog.id}}_points">{{blog.points}}</span>
+      <br>
+      <i class="far fa-thumbs-down"  id="{{blog.id}}_nay"></i>
+    </span>
 
 
-  </span>
+        {% if blog.id in yayed_blogs %}
+        <script type="text/javascript">
+          console.log("yayed");
+          $("#{{blog.id}}_yay").css("color",'orange')
+          $("#{{blog.id}}_yay").click(unyay)
+        </script>
+        {% else %}
+        <script type="text/javascript">
+          console.log("not yayed")
+          $("#{{blog.id}}_yay").css("color",'black')
+          $("#{{blog.id}}_yay").click(yay)
+        </script>
+        {% endif %}
+
+         {% if blog.id in nayed_blogs %}
+         <script type="text/javascript">
+            console.log("nayed");
+           $("#{{blog.id}}_nay").css("color","blue")
+           $("#{{blog.id}}_nay").click(unnay)
+         </script>
+         {% else %}
+         <script type="text/javascript">
+            console.log("not nayed");
+           $("#{{blog.id}}_nay").css("color","black")
+           $("#{{blog.id}}_nay").click(nay)
+         </script>
+         {% endif %}
+
+
+
+</div>
+  <div class="col-11" style="margin-top:5px;">
+    <p style="font-size:0.9em;">{{blog.content|safe|truncatechars_html:450}}</p>
+
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-3">
+        <span class="images">
+          {% if blog.blog_images.count < 4 %}
+          {% for image in blog.blog_images.all %}
+          <img class="post-images"src="{{image.img.url}}" alt="no image">
+          {% endfor %}
+          {% else %}
+          {% for image in blog.blog_images.all|slice:':3' %}
+          <img class="post-images"src="{{image.img.url}}" alt="no image">
+          {% endfor %}
+          <img class="post-images" src="{% static "css/plus_3.jpg" %}" alt="">
+          {% endif %}
+        </span>
+  </div>
+  <div class="col-6">
+  </div>
+  <div class="col-3">
+    <a href="{% url 'blogs:details' pk=blog.pk %}" class="btn  btn-light">Read more</a>
+
+  </div>
+</div>
+
   </div>
 </div>

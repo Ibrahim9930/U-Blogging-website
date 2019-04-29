@@ -97,7 +97,7 @@ $query = $db->exec( ' UPDATE accounts_uer SET visited=1 WHERE user_id="'.$row1["
                                 opacity: 0.5;" >   Dive In Our Universe</h6>
 
       <div class="row" style="
-        max-height: 400px;
+        max-height: 250px;
         margin-top: 50px;
         overflow-y: scroll;
       overflow-x: hidden;

@@ -113,6 +113,7 @@ def populate_cat_blogs(name="nth",n1=125,n2=170):
                     nay = Nay.objects.get_or_create(nayer = nayer, nayed = blog)[0]
                     nay.save()
     print("Blog population done")
+
 if __name__ == '__main__':
     populate_users()
     populate_cat_blogs("culture",15)

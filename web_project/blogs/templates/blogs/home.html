@@ -13,14 +13,14 @@
   <div class="row">
     {% for blog in trending|slice:':4'  %}
     <div class="col-md-3">
-    <div class="mycard card" style="width: 100%; height:22vh; ">
+    <div class="mycard card" style="width: 100%;  ">
       <div class="card-body">
         <h5 class="card-title" style="font-size:1em;">{{blog.title|truncatechars_html:28}}</h5>
         <h6 class="card-subtitle mb-2" style="font-size:0.7em;opacity:0.7;" >{{blog.time_written|timesince}}</h6>
         <p style="font-size:0.7em;" class="card-text">{{blog.content|striptags|safe|truncatechars_html:60}}</p>
+        <a style="  margin-bottom:20px; color:white; "href="{% url 'blogs:details' pk=blog.pk %}" class="card-link">See more</a>
 
       </div>
-      <a style="  margin-left:20px;margin-bottom:20px; color:white; "href="{% url 'blogs:details' pk=blog.pk %}" class="card-link">See more</a>
 
     </div>
     </div>
@@ -45,10 +45,9 @@
 <div class="col-md-4 col-sm-0" >
   <div class="" style="margin-top:3vh;" id="userspace" >
 
-    <div class="card" style="height: 60vh; width:18rem">
-      <div class="card-body">
+    <div class="card" style="height: 50rem; width:18rem; ">
+      <div class="card-body" style="">
         {% if user.uer.profile_pic %}
-
         <img src="{{user.uer.profile_pic.url}}" class="userimage my-3" alt="">
         {% else %}
         <img src="{% static "css/uicon.png" %}" class="userimage my-3" alt="">
@@ -64,6 +63,50 @@
 
         <a href="{% url 'blogs:uerblogs' username=user.username %}" class="btn btn-primary mr-5">Blogs</a>
         <a href="{% url 'accounts:update' pk=user.uer.id %}" class="btn btn-dark">Settings</a>
+
+        <a onclick="topFunction()" id="myBtn" title="Go to top">Top</a>
+
+        <style media="screen">
+          #myBtn {
+
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: grey; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+}
+
+#myBtn:hover {
+  background-color: #555; /* Add a dark-grey background on hover */
+}
+
+        </style>
+
+        <script type="text/javascript">
+          window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("myBtn").style.display = "block";
+  } else {
+    document.getElementById("myBtn").style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+        </script>
+
       </div>
 </div>
 </div>
@@ -82,7 +125,7 @@ var header = document.getElementById("userspace");
 var sticky = header.offsetTop;
 
 function myFunction() {
-  if (window.pageYOffset > 400) {
+  if (window.pageYOffset > 250) {
     header.classList.add("sticky");
   } else {
     header.classList.remove("sticky");

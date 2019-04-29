@@ -70,15 +70,12 @@ border-radius: 50%;
 margin-left: calc(50% - 25px);
 }
 .userspace {
-
   padding: 10px 16px;
   margin-top: 80px;
 }
 
 .sticky {
   position: fixed;
-  margin-top: 50px;
-  top: 0;
   width: 100%
 }
 .sticky + .content {

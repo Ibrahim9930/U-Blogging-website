@@ -102,21 +102,14 @@ else {
 
 function search(a){
 
-var posts=document.getElementsByClassName('post');
-
-
+var posts=document.getElementsByClassName('post')
 for(var i = 0; i < posts.length; i++) {
 posts.item(i).style.display="none";
 }
-
 for(var i = 0; i < posts.length; i++) {
-
 if( posts.item(i).getAttribute("name").toLowerCase().includes(a.value.toLowerCase())  ){
-
 posts.item(i).style.display="block";
-
 }
-
 }
 
 

@@ -7,15 +7,17 @@
 
 {% block content %}
 
-<body style="background-color:rgb(230,230,230)">
+<body>
+</body>
 
 <div class="container">
+  <h5 style="color :#03a87c;">Popular on U :</h5>
   <div class="row">
     {% for blog in trending|slice:':4'  %}
     <div class="col-md-3">
     <div class="mycard card" style="width: 100%;  ">
       <div class="card-body">
-        <h5 class="card-title" style="font-size:1em;">{{blog.title|truncatechars_html:28}}</h5>
+        <h5 class="card-title" style="font-size:1em;">{{blog.title|truncatechars_html:25}}</h5>
         <h6 class="card-subtitle mb-2" style="font-size:0.7em;opacity:0.7;" >{{blog.time_written|timesince}}</h6>
         <p style="font-size:0.7em;" class="card-text">{{blog.content|striptags|safe|truncatechars_html:60}}</p>
         <a style="  margin-bottom:20px; color:white; "href="{% url 'blogs:details' pk=blog.pk %}" class="card-link">See more</a>
@@ -61,8 +63,8 @@
         <h5  style="text-align:center;" >Joined At</h5>
         <p class="card-text" style="text-align:center;">{{user.date_joined|date:"d b Y"}}</p>
 
-        <a href="{% url 'blogs:uerblogs' username=user.username %}" class="btn btn-primary mr-5">Blogs</a>
-        <a href="{% url 'accounts:update' pk=user.uer.id %}" class="btn btn-dark">Settings</a>
+        <a href="{% url 'blogs:uerblogs' username=user.username %}" class="btn btn-outline-success mr-5">Blogs</a>
+        <a href="{% url 'accounts:update' pk=user.uer.id %}" class="btn btn-outline-success">Settings</a>
 
         <a onclick="topFunction()" id="myBtn" title="Go to top">Top</a>
 

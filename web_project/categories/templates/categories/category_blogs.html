@@ -10,35 +10,37 @@
 
 <div class="container">
 
-      <div class="Profile_Info p-5" style="margin-top:10vh;">
+      <div class="Profile_Info p-5" >
           <div class="row">
 
-              <div style=" margin-top:auto; margin-bottom:auto;" class="col-2">
+              <div  class="col-2">
                 {% if cat.pic %}
-                <img style="width:50px; height:50px;"src="{{cat.pic.url}}" alt="">
+    <img style="width:10rem; height:10rem; border-radius:50%;"src="{{cat.pic.url}}" alt="">
                 {% else %}
                 <img style="" src="{% static "css/uicon.png" %}" alt="">
                 {% endif %}
-
-              </div>
-
-              <div style="margin-top:auto; margin-bottom:auto;"class="col-2">
-                <p >{{cat.name}}</p>
+                <center><h2>{{cat.name}}</h2></center>
               </div>
 
 
 
+
+<div class="col-1">
+
+</div>
               <div style="margin-top:auto; margin-bottom:auto;" class="col-6">
                 <p>{{cat.info}}</p>
                 </div>
 
+                <div class="col-1">
 
+                </div>
 
 
                 <div style="margin-top:auto; margin-bottom:auto;" class="col-2">
                 {% if is_subscribed %}
                   <div class="sub-unsub">
-                    <a href="{% url 'categories:unsubscribe' name=cat.slug %}" class="unsub-btn p-2">Subscribed</a>
+                    <a href="{% url 'categories:unsubscribe' name=cat.slug %}" class="unsub-btn  p-2">Subscribed</a>
                   </div>
                   {% else %}
                   <div class="sub-unsub">
@@ -95,17 +97,18 @@
 
     sub_btn.mouseenter(function(event){
       sub_btn.css('color',"white")
-      sub_btn.css("background-color","#3178e1")
+      sub_btn.css("background-color","#28a745")
+
     })
 
     sub_btn.mouseleave(function(event){
-      sub_btn.css('color',"#0000EE")
+      sub_btn.css('color',"#28a745")
       sub_btn.css("background-color","white")
     })
 
     unsub_btn.mouseenter(function(event){
       unsub_btn.css('color',"white")
-      unsub_btn.css("background-color","#3178e1")
+      unsub_btn.css("background-color","#28a745")
       unsub_btn.text("Unsubscribe")
     })
 

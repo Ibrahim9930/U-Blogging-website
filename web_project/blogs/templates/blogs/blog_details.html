@@ -2,14 +2,18 @@
 {% load static %}
 {% block color %}
   <link rel="stylesheet" href="{% static "css/white.css" %}">
+  <link href="https://fonts.googleapis.com/css?family=B612+Mono&display=swap" rel="stylesheet">
+
 {% endblock %}
 {% block content %}
 <div class="container" style="margin-bottom:20px;">
   <div class="row">
     <div class="col-8">
       <div class="title">
-        <p class="blog_title">{{blog.title|capfirst}}</p>
+        <center>
+        <p style=" margin-top:5%;  font-family: 'B612 Mono', monospace; font-size:2em;" class="blog_title">{{blog.title|capfirst}}</p>
         <span class="blog_time">Posted by {{blog.author.username}} at {{blog.time_written|date:"d M Y"}}</span>
+        </center>
         {% if user.is_authenticated and blog.author == user %}
         <span class="icons ml-5">
           <a href="{% url 'blogs:edit' pk=blog.pk %}">
@@ -23,13 +27,21 @@
 
       </div>
       <br>
-      <div class="blog_content">
+
+
+      <link href="https://fonts.googleapis.com/css?family=Roboto:100&display=swap" rel="stylesheet">
+
+      <div  style="
+
+    font-family: 'Roboto', sans-serif; font-size:1.4em; font-weight:bold;">
+
         {{blog.content|safe}}
+
       </div>
     </div>
     <div class="col-4">
       {% for image in blog.blog_images.all %}
-      <div class="card my-5" style="width: 18rem;">
+      <div class="card my-5" style="width: 18rem;;">
         <img src="{{image.img.url}}" class="card-img-top" alt="">
       </div>
       {% endfor %}
@@ -42,33 +54,47 @@
 
     <div class="form-group">
       <label for="exampleFormControlTextarea1">comment:</label>
-      <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
     </div>
     <div class="col-sm-10">
-    <button  onclick="addcomment(this)" type="submit" class="btn btn-primary">add</button>
+    <button  onclick="addcomment(this)" type="submit" class="btn btn-success">Add</button>
   </div>
   </form>
 
 
 <div class="row" style >
     <div class="col-12">
+
       {% for comment in blog.blog_comments.all %}
+
+
         <div class="comment p-4 m-3" style="background:rgb(245, 245, 245);">
+          <div class="row">
+            <div class="col-2">
+          <span style="font-weight:bold; color:#28a745 ; ">{{comment.author.username}}</span>
+          </div>
+          <div class="col-8">
+            <p style="width:80%; ">{{comment.content}}</p>
 
-          <span style=" font-weight:bold; color:black; opacity:0.7;" class="writer_name ml-5">{{comment.author.username}}</span>
-
-          <p style="width:80%; font-size:0.9em;">{{comment.content}}</p>
+          </div>
+<div class="col-2">
 
           {% if user.is_authenticated and comment.author == user %}
-          <form class="" action="http://127.0.0.1/U-Blogging-website/web_project/php/comments/deletecomment.php" method="post">
+          <form style="float:right;"   class="" action="http://127.0.0.1/U-Blogging-website/web_project/php/comments/deletecomment.php" method="post">
             <input type="text" name="id" value="{{comment.id}}" hidden>
            <button type="submit"  class="btn btn-link"> <b>Delete</b> </button>
          </form>
         {% endif %}
+      </div>
 
+      </div>
 
         </div>
+
+
+
       {% endfor %}
+
   </div>
 
 </div>

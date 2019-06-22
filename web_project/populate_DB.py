@@ -21,7 +21,7 @@ fakegen.add_provider(person)
 fakegen.add_provider(misc)
 fakegen.add_provider(internet)
 
-def populate_users(n=90):
+def populate_users(n=30):
     for entry in range(n):
         print(entry)
         user = User()
@@ -31,7 +31,7 @@ def populate_users(n=90):
         user.password = fakegen.password(length=15, special_chars=True, digits=True, upper_case=True, lower_case=True)
         user.email = fakegen.email()
         user.save()
-        user.uer.profile_pic = "C:\\xampp\\htdocs\\U-Blogging-website\\web_project\\media\\images\\" + str(random.randint(0,6))+"."+"jpg"
+        user.uer.profile_pic = "C:\\xampp\\htdocs\\U-Blogging-website\\web_project\\media\\profile_pictures\\" + str(random.randint(0,6))+"."+"jpg"
         user.uer.bio = fakegen.paragraph(nb_sentences=3, variable_nb_sentences=True, ext_word_list=None)
         user.uer.visited = True
         user.save()
@@ -45,7 +45,7 @@ def populate_subscriber(n=200):
         sub.save()
     print("Sub population done")
 
-def populate_cat_blogs(name="nth",n1=125,n2=170):
+def populate_cat_blogs(name="nth",n1=15,n2=50):
     cats = Category.objects.all()
     users = User.objects.all()
     avilable_cats = ["art","technology","music","culture","movies","books"]

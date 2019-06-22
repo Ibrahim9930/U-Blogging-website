@@ -6,6 +6,10 @@
       <meta charset="utf-8">
       <title> U </title>
 
+
+
+      <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
       {# JQuery #}
       <script
 			  src="https://code.jquery.com/jquery-3.4.0.js"
@@ -22,7 +26,7 @@
       <link rel="stylesheet" href="{% static 'css/blog_base_master.css' %}">
 
       {# Background Color #}
-      {% block color %}   {% endblock %}
+      {% block color %}  {% endblock %}
 
       </script>
 
@@ -38,12 +42,32 @@
       {# Font Awesome #}
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   </head>
-  <body class="bodyz">
+  <style media="screen">
+  a:link {
+    text-decoration: none;
+    color:#28a745;
+  }
+  a{
+    color:#28a745;
 
-    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark fixed-top">
+  }
+  a:hover {
+    color:#000;
+}
+  </style>
+  <body>
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
+
+<div class="container">
+
+    <nav class="navbar navbar-expand-lg"  style=" font-family: 'Montserrat', sans-serif;  ">
+
+      </style>
       {% if user.is_authenticated %}
-        <a class="navbar-brand" href="{% url 'blogs:homepage' %}">U</a>
+        <a class="navbar-brand" href="{% url 'blogs:homepage' %}"><h1 style="
 
+    font-family: 'Work Sans', sans-serif;  font-weight:bold;">U</h1></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -76,12 +100,20 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'blogs:uerblogs' username=user.username %}">My Account</a>
             </li>
+
           </ul>
         </div>
-        <form class="form-inline d-flex justify-content-end">
-          <a class="btn btn-sm btn-outline-secondary" href="{% url 'blogs:create' %}">New post</a>
-          <a class="btn btn-sm btn-outline-secondary" href="{% url 'accounts:logout' %}">Logout</a>
-        </form>
+
+
+                <form class="form-inline d-flex justify-content-end" style="height:120$;">
+
+                  <a class="btn btn-sm  btn-outline-success" href="{% url 'blogs:create' %}">New post</a>
+                  <a class="btn btn-sm  btn-outline-success" href="{% url 'accounts:logout' %}">Logout</a>
+
+                </form>
+
+
+
         {% else %}
         <a class="navbar-brand" href="#">U</a>
 
@@ -94,10 +126,7 @@
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'blogs:explore' %}">Explore</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'categories:list' %}">Categories</a>
+              <a class="nav-link" href="#">Explore</a>
             </li>
 
             <li class="nav-item dropdown">
@@ -125,9 +154,12 @@
         </div>
         {% endif %}
       </nav>
+
+</div>
+
+
 {% block content %}
 
 {% endblock %}
-
   </body>
 </html>

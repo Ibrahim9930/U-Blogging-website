@@ -2,12 +2,12 @@
 {% load static %}
 {% block content %}
 
-<div class="container-fluid">
+<div style="margin-top:4em;" class="container-fluid">
 {% if  user.is_authenticated and blog_user == user %}
 
 <div class="row">
   <div class="col-lg-2"></div>
-<div class=" col-lg-5 col-sm-12 " style="margin-top:100px;">
+<div class=" col-lg-5 col-sm-12 " style="margin-top:10px;">
 
   <form enctype="multipart/form-data" method="post">
     {{form.bio.errors}}
@@ -75,7 +75,7 @@
 </div>
 
 <div class="form-row" style="margin-left:45%;">
-<button type="submit" class="btn btn-primary">Edit</button>
+<button style="margin-top:20px;" type="submit" class="btn btn-success">Edit</button>
 </div>
 
 
@@ -89,28 +89,26 @@
     <h2 class="user_not_found mt-5 text-center">You have to be logged in as {{blog_user.username}} to access this page</h2>
 {% endif %}
   <div class="d-none d-lg-block col-lg-3  ">
-<div class="ss"style="width:300px; height:500px;">
+<div>
 
     <aside class="profile-card">
       <header>
         <!-- here’s the avatar -->
         <a>
           {% if blog_user.uer.profile_pic %}
-          <img class="hoverZoomLink" src="{{blog_user.uer.profile_pic.url}}" alt="">
+            <center>     <img style="border-radius:50%;" src="{{blog_user.uer.profile_pic.url}}" alt="">    </center>
           {% else %}
-          <img class="hoverZoomLink" src="{% static "css/uicon.png" %}" alt="">
+      <center>    <img class="hoverZoomLink" src="{% static "css/uicon.png" %}" alt=""></center>
           {% endif %}
         </a>
-        <h1>
-                {{blog_user.username}}
-              </h1>
+    <center>    <h1>    {{blog_user.username}}    </h1>  </center>
             <br>
 
 
       <!-- bit of a bio; who are you? -->
       <div class="profile-bio">
         <p>
-          {{blog_user.uer.bio}}
+            <center>     {{blog_user.uer.bio}}    </center>
         </p>
       </div>
 

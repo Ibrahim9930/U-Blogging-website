@@ -100,11 +100,16 @@
 
 </script>
 
+<link href="https://fonts.googleapis.com/css?family=B612+Mono&display=swap" rel="stylesheet">
+
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
-<div style="border-left:2px solid grey; margin-top:0px; margin-bottom:20px;" class="post-card card ">
+<div style="border-left:2px solid #28a745; margin-top:0px; margin-bottom:20px;
+" class="post-card card ">
   <div class="card-body">
-    <span style="font-family: 'Open Sans', sans-serif; font-weight:bold; font-size:1.3em;"> {{blog.title}}</span>
+    <span style="
+
+    font-family: 'B612 Mono', monospace; font-weight:bold; font-size:1.1em; color:#28a745;"> {{blog.title}}</span>
 <br>
   <a href="{% url 'categories:category_blogs' slug=blog.category.slug %}">
     {% if blog.author.uer.profile_pic %}
